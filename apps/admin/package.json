@@ -22,7 +22,8 @@
     "dbReset": "dotenv -e .env.local -- prisma migrate reset --schema=./prisma/prodSchema.prisma",
 
     "dbMigrate": "dotenv -e .env.local prisma migrate dev",
-    "studio": "dotenv -e .env.local prisma studio"
+    "studio": "dotenv -e .env.local prisma studio",
+    "prodStudio": "dotenv -e .env.local --  prisma studio --schema=./prisma/prodSchema.prisma"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.6",
