@@ -1,0 +1,19 @@
+{
+  "name": "surya-mono-repo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "turbo run dev",
+    "web-dev": "turbo run dev --filter @surya/admin",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "docs",
+    "apps/*",
+    "packages/*"
+  ]
+}

@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int  @id @default(autoincrement())
+  email     String @unique
+  password  String
+  isAdmin   Boolean
+  isTutor   Boolean
+  isStudent Boolean
+  name      String?
+  informationTutor InformationTutor?
+  informationAdmin InformationAdmin?
+  informationStudent InformationStudent?
+}
+
+model InformationStudent {
+  id Int @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  lastName String?
+  firstName String?
+  profileImageLink String?
+  nativeLanguage Int?
+  // TODO After migration to Postgresql, needed to be learningLanguages Int[]
+  learningLanguages Int?
+  remainingPurchase Int?
+  rootUser User @relation(fields: [rootUserId], references: [id])
+  rootUserId Int @unique
+}
+
+model InformationTutor {
+  id Int @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  rootUser User @relation(fields: [rootUserId], references: [id])
+  rootUserId Int @unique
+  lastName String
+  firstName String
+  shortInfo String
+  videoLink String
+  profileImageLink String?
+  nativeLanguage Int?
+  // TODO After migration to Postgresql, needed to be teachingLanguages Int[]
+  teachingLanguages Int?
+}
+
+model InformationAdmin {
+  id Int @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  lastName String?
+  firstName String?
+  rootUser User @relation(fields: [rootUserId], references: [id])
+  rootUserId Int @unique
+}
+
+model ConfigLanguages {
+  id Int @id @default(autoincrement())
+  name String
+  flagSVGLink String
+}
