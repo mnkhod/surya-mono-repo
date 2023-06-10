@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
 
-    "vercelBuild": "dotenv -e=.env.local -- prisma generate --schema=prodSchema.prisma && next build",
+    "vercelBuild": "dotenv -e=.env.local -- prisma generate --schema=./prisma/prodSchema.prisma && next build",
 
     "prismaDev": "dotenv -e .env.local prisma migrate dev",
 
