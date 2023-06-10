@@ -6,13 +6,13 @@ const prisma = new PrismaClient()
 
 async function main() {
 
-  let languageIds:number[] = await configLanguagesSeed().then((data) => data)
+  // let languageIds:number[] = await configLanguagesSeed().then((data) => data)
 
-  tutorSeed(languageIds) 
+  tutorSeed([1,2,3]) 
   
   adminSeed()
 
-  studentSeed(languageIds)
+  studentSeed([1,2,3])
   
 
 }
@@ -70,16 +70,8 @@ async function configLanguagesSeed(): Promise<number[]>{
 
   // do not decrease array limit
   for (let i = 0; i < 3; i++) {
-    await prisma.configLanguages.upsert({
-      where: {
-        id: i
-      },
-      update: {
-        id: i,
-        name: faker.location.country(),
-        flagSVGLink: faker.internet.url()
-      },
-      create: {
+    await prisma.configLanguages.create({
+      data: {
         id: i,
         name: faker.location.country(),
         flagSVGLink: faker.internet.url()
