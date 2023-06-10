@@ -11,6 +11,7 @@ export default async function handler(req : any, res : any) {
   const saltRounds = 10;
   const hashedPassword = await hash(password,saltRounds)
 
+  // TODO change information admin informations
   const user = await prisma.user.create({
     data: {
       email: email,
@@ -19,6 +20,12 @@ export default async function handler(req : any, res : any) {
       isAdmin: true,
       isTutor: false,
       isStudent: false,
+      informationAdmin: {
+        create: {
+          lastName: "test",
+          firstName: "joke"
+        }
+      }
     },
   })
 

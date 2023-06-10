@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 
-export default function useGetAllStudentsQuery() {
+export default function useGetAllAdminsQuery() {
   return useQuery(
     {
       queryKey: "allStudents",
-      queryFn: () => axios.get("/api/student/getAll").then((res) => {
+      queryFn: () => axios.get("/api/admin/getAll").then((res) => {
         console.log(res.data)
         return res.data
       }),

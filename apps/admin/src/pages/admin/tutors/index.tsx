@@ -12,7 +12,7 @@ import ListTab from "@/components/tutor/ListTab";
 import CreateTutorTab from "@/components/tutor/CreateTutorTab";
 import EditTutorTab from "@/components/tutor/EditTutorTab";
 
-export default function AdminDashboard() {
+export default function Tutors() {
   const [tabIndex, setTabIndex] = useState(0);
   const [row, setRow] = useState({});
 

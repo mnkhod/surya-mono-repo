@@ -8,10 +8,11 @@ import { PrismaClient } from "@prisma/client";
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-material.css"; // Optional theme CSS
-import ListTab from "@/components/student/ListTab";
-import EditStudentTab from "@/components/student/EditStudentTab";
+import ListTab from "@/components/admin/ListTab";
+import CreateAdminTab from "@/components/admin/CreateAdminTab";
+import EditAdminTab from "@/components/admin/EditAdminTab";
 
-export default function Students() {
+export default function Admins() {
   const [tabIndex, setTabIndex] = useState(0);
   const [row, setRow] = useState({});
 
@@ -36,12 +37,22 @@ export default function Students() {
               className={`tab tab-lifted ${tabIndex == 1 && "tab-active"
                 } font-bold`}
             >
+              Create
+            </button>
+            <button
+              onClick={() => {
+                setTabIndex(2);
+              }}
+              className={`tab tab-lifted ${tabIndex == 2 && "tab-active"
+                } font-bold`}
+            >
               Edit
             </button>
           </div>
 
           {tabIndex == 0 && <ListTab tabIndex={tabIndex} setRow={setRow} setTabIndex={setTabIndex} />}
-          {tabIndex == 1 && <EditStudentTab row={row} setTabIndex={setTabIndex} />}
+          {tabIndex == 1 && <CreateAdminTab setTabIndex={setTabIndex} />}
+          {tabIndex == 2 && <EditAdminTab row={row} setTabIndex={setTabIndex} />}
         </div>
       </div>
     </AdminLayout>
