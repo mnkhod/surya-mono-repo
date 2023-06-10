@@ -8,18 +8,18 @@
     "start": "next start",
     "lint": "next lint",
 
-    "vercelBuild": "dotenv -e .env.local prisma generate --schema prodSchema.prisma && next build",
+    "vercelBuild": "dotenv -e=.env.local -- prisma generate --schema=prodSchema.prisma && next build",
 
     "prismaDev": "dotenv -e .env.local prisma migrate dev",
 
     "generate": "dotenv -e .env.local prisma generate",
-    "prodGenerate": "dotenv -e .env.local prisma generate --schema prodSchema.prisma",
+    "prodGenerate": "dotenv -e .env.local -- prisma generate --schema=./prisma/prodSchema.prisma",
 
     "dbSeed": "dotenv -e .env.local prisma db seed",
-    "dbProdSeed": "dotenv -e .env.local prisma db seed --schema prodSchema.prisma",
+    "dbProdSeed": "dotenv -e .env.local -- prisma db seed --schema=./prisma/prodSchema.prisma",
 
-    "dbPush": "dotenv -e .env.local prisma db push --schema prodSchema.prisma",
-    "dbReset": "dotenv -e .env.local prisma migrate reset --schema prodSchema.prisma",
+    "dbPush": "dotenv -e .env.local -- prisma db push --schema=./prisma/prodSchema.prisma",
+    "dbReset": "dotenv -e .env.local -- prisma migrate reset --schema=./prisma/prodSchema.prisma",
 
     "dbMigrate": "dotenv -e .env.local prisma migrate dev",
     "studio": "dotenv -e .env.local prisma studio"
