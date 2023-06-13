@@ -1,19 +1,34 @@
-import { NativeRouter } from "react-router-native";
-import { Route,Routes } from "react-router-dom";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Home from "./routes/Home";
+import IntroductionScreen from "./routes/IntroductionScreen";
+import LoginScreen from "./routes/LoginScreen";
+import HomeScreen from "./routes/HomeScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <>
-      <NativeRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={<Home />}
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Introduction">
+          <Stack.Screen
+            name="Introduction"
+            component={IntroductionScreen}
+            options={{ headerShown: false }}
           />
-        </Routes>
-      </NativeRouter>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </>
   );
 }
