@@ -7,14 +7,21 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercelBuild": "dotenv -e .env.local prisma generate && next build",
+
+    "vercelBuild": "dotenv -e .env.local prisma generate --schema prodSchema.prisma && next build",
+
     "prismaDev": "dotenv -e .env.local prisma migrate dev",
+
     "generate": "dotenv -e .env.local prisma generate",
-    "seed": "NODE_ENV=development dotenv -e .env.local prisma db seed",
-    "dbPush": "dotenv -e .env.local prisma db push",
+    "prodGenerate": "dotenv -e .env.local prisma generate --schema prodSchema.prisma",
+
     "dbSeed": "dotenv -e .env.local prisma db seed",
+    "dbProdSeed": "dotenv -e .env.local prisma db seed --schema prodSchema.prisma",
+
+    "dbPush": "dotenv -e .env.local prisma db push --schema prodSchema.prisma",
+    "dbReset": "dotenv -e .env.local prisma migrate reset --schema prodSchema.prisma",
+
     "dbMigrate": "dotenv -e .env.local prisma migrate dev",
-    "dbReset": "dotenv -e .env.local prisma migrate reset",
     "studio": "dotenv -e .env.local prisma studio"
   },
   "dependencies": {
