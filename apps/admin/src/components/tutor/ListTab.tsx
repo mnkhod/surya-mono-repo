@@ -67,6 +67,24 @@ export default function ListTab(
     }
   }
 
+  async function handleApproveButton(params: any) {
+    if (!params) return;
+
+    try {
+      const result = await axios.post("/api/tutor/approvement", {
+        id: params.data.id,
+        isApproved: !params.data.isApproved
+      });
+
+      if (result.status == 200) {
+        await refetchTutorData();
+        alert("success", "Tutor state updated");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex w-full justify-between">
@@ -85,11 +103,11 @@ export default function ListTab(
           </label>
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          <Link href="/admin/addTutor">
-            <button className="btn btn-secondary w-full">
-              <Icon className="w-auto h-6" icon="ic:round-plus" />
+          {/* <Link href="/admin/addTutor">
+            <button className="btn btn-secondary w-full" onClick={setTabIndex(1)}>
+              <Icon className="w-auto h-6" icon="ic:round-plus"/>
             </button>
-          </Link>
+          </Link> */}
           {isSuccess && (
             <>
               <button
@@ -120,18 +138,42 @@ export default function ListTab(
                 headerName: "",
               },
               { field: "rootUser.email", headerName: "Email" },
-              { field: "firstName" },
-              { field: "lastName" },
-              { field: "shortInfo", flex: 2 },
+              // { field: "firstName" },
+              // { field: "lastName" },
+              // { field: "shortInfo", flex: 2 },
+              { field: "isApproved", flex: 1 },
               {
                 field: "actions",
                 lockPosition: "right",
-                headerName: "",
+                headerName: "actions",
                 filter: false,
                 sortable: false,
                 cellRenderer: (params: any) => {
                   return (
                     <div className="relative z-20 h-full flex items-center gap-2 justify-end">
+                      {
+                        params.data?.isApproved ? <button
+                        className="btn btn-outline btn-secondary rounded-full btn-sm"
+                        onClick={() => {
+                          handleApproveButton(params);
+                        }}
+                      >
+                        <Icon
+                          className="w-auto h-4"
+                          icon="mdi-account-cancel-outline"
+                        />
+                      </button> : <button
+                        className="btn btn-outline btn-secondary rounded-full btn-sm"
+                        onClick={() => {
+                          handleApproveButton(params);
+                        }}
+                      >
+                        <Icon
+                          className="w-auto h-4"
+                          icon="mdi-check-decagram-outline"
+                        />
+                      </button>
+                      }
                       <button
                         className="btn btn-outline btn-secondary rounded-full btn-sm"
                         onClick={() => {
