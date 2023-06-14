@@ -44,14 +44,15 @@ model InformationTutor {
   updatedAt  DateTime   @updatedAt
   rootUser User @relation(fields: [rootUserId], references: [id])
   rootUserId Int @unique
-  lastName String
-  firstName String
-  shortInfo String
-  videoLink String
+  lastName String?
+  firstName String?
+  shortInfo String?
+  videoLink String?
   profileImageLink String?
   nativeLanguage Int?
   // TODO After migration to Postgresql, needed to be teachingLanguages Int[]
   teachingLanguages Int?
+  isApproved Boolean @default(false)
 }
 
 model InformationAdmin {

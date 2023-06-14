@@ -19,6 +19,9 @@ export default async function handler(req : any, res : any) {
       isTutor: true,
       isAdmin: false,
       isStudent: false,
+      informationTutor: {
+        create: {}
+      }
     },
   })
 

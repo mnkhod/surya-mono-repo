@@ -12,7 +12,7 @@
 
     "prismaDev": "dotenv -e .env.local prisma migrate dev",
 
-    "generate": "dotenv -e .env.local prisma generate",
+    "generate": "npx dotenv -e .env.local -- prisma generate",
     "prodGenerate": "dotenv -e .env.local -- prisma generate --schema=./prisma/prodSchema.prisma",
 
     "dbSeed": "dotenv -e .env.local prisma db seed",

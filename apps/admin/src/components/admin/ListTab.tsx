@@ -1,4 +1,4 @@
-import useGetAllTutorsQuery from "@/query/useGetAllTutorsQuery";
+import useGetAllAdminsQuery from "@/query/useGetAllAdminsQuery";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import React, { FormEvent, useEffect, useRef, useState } from "react";
@@ -21,12 +21,12 @@ export default function ListTab(
 
   useEffect(() => {
     if (tabIndex == 0) {
-      refetchTutorData();
+      refetchAdminData();
     }
   }, [tabIndex]);
 
-  const { data: tutors, isSuccess, refetch: refetchTutorData } =
-    useGetAllTutorsQuery();
+  const { data: tutors, isSuccess, refetch: refetchAdminData } =
+    useGetAllAdminsQuery();
 
   function handleQuickFilter(e: FormEvent<HTMLInputElement>) {
     if (!table || !table.current) return;
@@ -42,7 +42,7 @@ export default function ListTab(
     if (!table || !table.current) return;
 
     let grid: GridOptions = table.current;
-    grid.api?.exportDataAsCsv({ fileName: "All Tutors Data" });
+    grid.api?.exportDataAsCsv({ fileName: "All Admins Data" });
   }
 
   function handleEditButton(params: any) {
@@ -54,31 +54,13 @@ export default function ListTab(
     if (!params) return;
 
     try {
-      const result = await axios.post("/api/tutor/removeTutor", {
+      const result = await axios.post("/api/admin/removeAdmin", {
         id: params.data.rootUser.id,
       });
 
       if (result.status == 200) {
-        await refetchTutorData();
-        alert("success", "Deleted tutor");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  async function handleApproveButton(params: any) {
-    if (!params) return;
-
-    try {
-      const result = await axios.post("/api/tutor/approvement", {
-        id: params.data.id,
-        isApproved: !params.data.isApproved
-      });
-
-      if (result.status == 200) {
-        await refetchTutorData();
-        alert("success", "Tutor state updated");
+        await refetchAdminData();
+        alert("success", "Deleted Admin");
       }
     } catch (e) {
       console.log(e);
@@ -103,11 +85,11 @@ export default function ListTab(
           </label>
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          {/* <Link href="/admin/addTutor">
-            <button className="btn btn-secondary w-full" onClick={setTabIndex(1)}>
-              <Icon className="w-auto h-6" icon="ic:round-plus"/>
+          <Link href="/admin/addAdmin">
+            <button className="btn btn-secondary w-full">
+              <Icon className="w-auto h-6" icon="ic:round-plus" />
             </button>
-          </Link> */}
+          </Link>
           {isSuccess && (
             <>
               <button
@@ -138,42 +120,18 @@ export default function ListTab(
                 headerName: "",
               },
               { field: "rootUser.email", headerName: "Email" },
-              // { field: "firstName" },
-              // { field: "lastName" },
-              // { field: "shortInfo", flex: 2 },
-              { field: "isApproved", flex: 1 },
+              { field: "firstName" },
+              { field: "lastName" },
+              { field: "shortInfo", flex: 2 },
               {
                 field: "actions",
                 lockPosition: "right",
-                headerName: "actions",
+                headerName: "",
                 filter: false,
                 sortable: false,
                 cellRenderer: (params: any) => {
                   return (
                     <div className="relative z-20 h-full flex items-center gap-2 justify-end">
-                      {
-                        params.data?.isApproved ? <button
-                        className="btn btn-outline btn-secondary rounded-full btn-sm"
-                        onClick={() => {
-                          handleApproveButton(params);
-                        }}
-                      >
-                        <Icon
-                          className="w-auto h-4"
-                          icon="mdi-account-cancel-outline"
-                        />
-                      </button> : <button
-                        className="btn btn-outline btn-secondary rounded-full btn-sm"
-                        onClick={() => {
-                          handleApproveButton(params);
-                        }}
-                      >
-                        <Icon
-                          className="w-auto h-4"
-                          icon="mdi-check-decagram-outline"
-                        />
-                      </button>
-                      }
                       <button
                         className="btn btn-outline btn-secondary rounded-full btn-sm"
                         onClick={() => {

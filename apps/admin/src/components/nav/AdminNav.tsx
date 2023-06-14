@@ -56,6 +56,11 @@ export default function AdminNav() {
                 </Link>
               </li>
               <li>
+              <Link href="/admin/admins">
+                  <span className={configureActivePage("admins")}>Admins</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/admin/tutors">
                   <span className={configureActivePage("tutors")}>Tutors</span>
                 </Link>
