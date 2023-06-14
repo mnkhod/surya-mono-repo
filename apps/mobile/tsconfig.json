@@ -10,7 +10,9 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "ESNext",
-    "paths": {},
+    "paths": {
+      "@styles/*": ["./styles/*"]
+    },
     "include": [
       "types/*.ts"
     ]
