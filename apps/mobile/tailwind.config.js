@@ -4,6 +4,7 @@ module.exports = {
   content: [
     "./App.{js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
+    "./styles/**/*.{js,jsx,ts,tsx}",
     "./routes/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
@@ -28,13 +29,15 @@ module.exports = {
       "secondary-dark-sm" : "#8C5B2A",
       "secondary-dark" : "#6B4620",
 
-      "dark-xs" : "#0000003D",
-      "dark-sm" : "#00000099",
-      "dark" : "#262626",
+      // on-light-mode
+      "dark-low" : "#0000003D",
+      "dark-med" : "#00000099",
+      "dark-high" : "#262626",
 
-      "light-xs" : "#0000001F",
-      "light-sm" : "#00000014",
-      "light" : "#0000001F",
+      // on-dark-mode
+      "light-low" : "#0000001F",
+      "light-med" : "#00000014",
+      "light-high" : "#0000001F",
 
       "back-light-primary" : "#FFFFFF",
       "back-light-secondary" : "#F5F5FA",
@@ -43,6 +46,9 @@ module.exports = {
       "back-dark-primary" : "#142033",
       "back-dark-secondary" : "#212B51",
       "back-dark-thirtiary" : "#2D3070",
+
+      "stroke" : "#00000014",
+      "stroke-light" : "#0000001F",
 
       "feedback-info" : "#0055FF",
       "feedback-success" : "#00BF70",

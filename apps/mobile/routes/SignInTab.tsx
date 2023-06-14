@@ -2,6 +2,7 @@ import { Button, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
 import { SignInTabProp } from "../types/NavigationTypes";
+import { input } from "@styles/input" 
 
 export default function SignInTab({ navigation } : SignInTabProp) {
   const [email, setEmail] = useState("");
@@ -40,13 +41,13 @@ export default function SignInTab({ navigation } : SignInTabProp) {
   return (
     <View className="bg-white px-5 gap-3 flex-1 items-center justify-center">
       <TextInput
-        className="border p-2 w-full"
+        className={`${input} w-full`}
         onChangeText={setEmail}
         value={email}
         placeholder="Имэйл хаяг оруулах хэсэг"
       />
       <TextInput
-        className="border p-2 w-full"
+        className={`${input} w-full`}
         onChangeText={setPassword}
         value={password}
         passwordRules=""
