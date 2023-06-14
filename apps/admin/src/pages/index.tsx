@@ -165,6 +165,7 @@ export default function Home() {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
+  console.log(session)
   const prisma = new PrismaClient();
 
   if (session) {
@@ -174,6 +175,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       where: {
         email: session.user.email ?? "",
       },
+      include: {
+        informationTutor: true,
+        informationStudent: true,
+        informationAdmin: true,
+      }
     });
 
     if (!user) return { props: {} };
@@ -186,8 +192,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       return { redirect: { destination: "/admin/tutors", permanent: false, } };
     }
 
-    if (user.isTutor == true) {
-      return { redirect: { destination: "/dashboard/tutor", permanent: false, } };
+    if (user.isTutor == true && user.informationTutor?.isApproved ) {
+      return { redirect: { destination: "/tutor/dashboard", permanent: false, } };
+    } else if (user.isTutor == true && !user.informationTutor?.isApproved) {
+      return { redirect: { destination: "/tutor/selfInformation", permanent: false, } };
     }
 
     return { props: {} };
