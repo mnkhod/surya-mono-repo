@@ -35,6 +35,19 @@ module.exports = {
       "light-xs" : "#0000001F",
       "light-sm" : "#00000014",
       "light" : "#0000001F",
+
+      "back-light-primary" : "#FFFFFF",
+      "back-light-secondary" : "#F5F5FA",
+      "back-light-thirtiary" : "#F0F0F7",
+
+      "back-dark-primary" : "#142033",
+      "back-dark-secondary" : "#212B51",
+      "back-dark-thirtiary" : "#2D3070",
+
+      "feedback-info" : "#0055FF",
+      "feedback-success" : "#00BF70",
+      "feedback-warning" : "#F2CA00",
+      "feedback-error" : "#FF7253",
     },
     extend: {
     },
