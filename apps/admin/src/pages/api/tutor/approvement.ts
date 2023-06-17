@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+
 export default async function handler(req: any, res: any) {
   let { id, isApproved } = req.body
 
@@ -13,7 +14,7 @@ export default async function handler(req: any, res: any) {
         id,
       },
       data: {
-        isApproved
+        firstName: "asd"
       }
     });
 

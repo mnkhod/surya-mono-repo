@@ -20,7 +20,6 @@ export default async function handler(req : any, res : any) {
       isAdmin: false,
       isStudent: false,
       informationTutor: {
-        create: {}
       }
     },
   })

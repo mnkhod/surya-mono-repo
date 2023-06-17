@@ -22,8 +22,8 @@ export default async function handler(req : any, res : any) {
       isStudent: false,
       informationAdmin: {
         create: {
-          lastName: "test",
-          firstName: "joke"
+          lastName: "",
+          firstName: ""
         }
       }
     },
