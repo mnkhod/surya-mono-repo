@@ -5,12 +5,34 @@ import IntroductionScreen from "./routes/IntroductionScreen";
 import LoginScreen from "./routes/LoginScreen";
 import HomeScreen from "./routes/HomeScreen";
 
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback } from "react";
+import { Text, View } from "react-native";
+
+SplashScreen.preventAutoHideAsync();
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    "Rubik": require("./assets/font/Rubik-Regular.ttf"),
+    "Rubik-Medium": require("./assets/font/Rubik-Medium.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <>
-      <NavigationContainer>
+    <NavigationContainer>
+      <View className="flex-1" onLayout={onLayoutRootView}>
         <Stack.Navigator initialRouteName="Introduction">
           <Stack.Screen
             name="Introduction"
@@ -28,7 +50,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
-      </NavigationContainer>
-    </>
+      </View>
+    </NavigationContainer>
   );
 }
