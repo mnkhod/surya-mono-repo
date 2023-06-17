@@ -17,11 +17,11 @@ export default async function handler(req: any, res: any) {
       data: {
         firstName: body.firstName,
         lastName: body.lastName,
-        // nativeLanguage: body.nativeLanguage,
+        nativeLanguage: body.nativeLanguage,
         profileImageLink: body.profileImageLink,
         shortInfo: body.shortInfo,
         videoLink: body.videoLink,
-        // teachingLanguages: body.teachingLanguages,
+        teachingLanguages: body.teachingLanguages,
       }
     });
 

@@ -10,18 +10,20 @@ import { alert } from "@/lib/alert";
 
 type Inputs = {
   email: string;
-  firstName: string;
-  lastName: string;
-  nativeLanguage: string;
-  profileImageLink: string;
-  shortInfo: string;
-  videoLink: string;
-  teachingLanguages: string;
+  informationTutor: {
+    firstName: string;
+    lastName: string;
+    nativeLanguage: string;
+    profileImageLink: string;
+    shortInfo: string;
+    videoLink: string;
+    teachingLanguages: string;
+  }
 };
 
 export default function SelfInformation({ userInfo }: any) {
 
-  const [user, setUser] = useState(JSON.parse(userInfo))
+  const [user,] = useState(JSON.parse(userInfo))
   const [btnLoading, setBtnLoading] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm({ values: user });
@@ -33,13 +35,13 @@ export default function SelfInformation({ userInfo }: any) {
         rootUserId: user.id,
         tutorId: user.informationTutor.id,
         email: data.email,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        // nativeLanguage: data.nativeLanguage,
-        profileImageLink: data.profileImageLink,
-        shortInfo: data.shortInfo,
-        videoLink: data.videoLink,
-        // teachingLanguages: data.teachingLanguages,
+        firstName: data.informationTutor.firstName,
+        lastName: data.informationTutor.lastName,
+        nativeLanguage: parseInt(data.informationTutor.nativeLanguage),
+        profileImageLink: data.informationTutor.profileImageLink,
+        shortInfo: data.informationTutor.shortInfo,
+        videoLink: data.informationTutor.videoLink,
+        teachingLanguages: parseInt(data.informationTutor.teachingLanguages),
       })
 
 
@@ -47,7 +49,7 @@ export default function SelfInformation({ userInfo }: any) {
         alert("success", "Updated Info");
       }
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
 
     setBtnLoading(false);
@@ -79,7 +81,7 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("firstName")}
+              {...register("informationTutor.firstName")}
             />
           </div>
           <div className="form-control w-full">
@@ -89,7 +91,7 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("lastName")}
+              {...register("informationTutor.lastName")}
             />
           </div>
           <div className="form-control w-full">
@@ -99,7 +101,7 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("nativeLanguage")}
+              {...register("informationTutor.nativeLanguage")}
             />
           </div>
           <div className="form-control w-full">
@@ -109,7 +111,7 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("profileImageLink")}
+              {...register("informationTutor.profileImageLink")}
             />
           </div>
           <div className="form-control w-full">
@@ -119,7 +121,7 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("shortInfo")}
+              {...register("informationTutor.shortInfo")}
             />
           </div>
           <div className="form-control w-full">
@@ -129,7 +131,7 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("videoLink")}
+              {...register("informationTutor.videoLink")}
             />
           </div>
           <div className="form-control w-full">
@@ -139,7 +141,7 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("teachingLanguages")}
+              {...register("informationTutor.teachingLanguages")}
             />
           </div>
           <button
@@ -156,7 +158,6 @@ export default function SelfInformation({ userInfo }: any) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
-  console.log(session)
   const prisma = new PrismaClient();
 
   if (session) {
@@ -168,7 +169,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       where: {
         email: session.user?.email ?? "",
       },
-      include: {
+      select: {
+        id: true,
+        email: true,
+        isTutor: true,
+        name: true,
         informationTutor: true,
       }
     });
@@ -176,6 +181,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (!user) return { props: {} };
 
     if (user.isTutor == true) {
+      console.log(user)
       return { props: { userInfo: JSON.stringify(user) } };
     }
 

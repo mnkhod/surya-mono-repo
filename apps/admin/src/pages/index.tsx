@@ -164,7 +164,7 @@ export default function Home() {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getServerSession(context.req, context.res, authOptions);
+  const session = await getServerSession(context.req, context.res, authOptions);  
   console.log(session)
   const prisma = new PrismaClient();
 
