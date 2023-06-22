@@ -8,6 +8,8 @@ async function main() {
 
   // let languageIds:number[] = await configLanguagesSeed().then((data) => data)
 
+  configLanguagesSeed()
+
   tutorSeed([1,2,3]) 
   
   adminSeed()
@@ -68,7 +70,7 @@ async function configLanguagesSeed(): Promise<number[]>{
 
   let ids:number[] = []
 
-  // do not decrease array limit
+  // min array size must be 3
   for (let i = 0; i < 3; i++) {
     await prisma.configLanguages.create({
       data: {

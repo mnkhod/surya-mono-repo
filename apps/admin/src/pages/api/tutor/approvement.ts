@@ -14,7 +14,7 @@ export default async function handler(req: any, res: any) {
         id,
       },
       data: {
-        firstName: "asd"
+        isApproved
       }
     });
 

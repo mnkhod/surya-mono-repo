@@ -1,34 +1,49 @@
-import React, { useState } from "react";
-import { GetServerSidePropsContext, InferGetServerSidePropsType, GetServerSideProps } from "next";
+import React, { useState, useEffect } from "react";
+import { GetServerSidePropsContext } from "next";
 import { getServerSession } from "next-auth/next";
 import { PrismaClient } from "@prisma/client";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import TutorLayout from "@/components/layouts/TutorLayout";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { alert } from "@/lib/alert";
+import useGetLanguagesQuery from "@/query/useGetAllLanguagesQuery";
+
 
 type Inputs = {
   email: string;
   informationTutor: {
     firstName: string;
     lastName: string;
-    nativeLanguage: string;
+    nativeLanguage: any;
     profileImageLink: string;
     shortInfo: string;
     videoLink: string;
-    teachingLanguages: string;
+    teachingLanguages: any;
   }
 };
 
+type Languages = {
+  id: number;
+  name: string;
+  flagSVGLink: string;
+}
+
 export default function SelfInformation({ userInfo }: any) {
 
-  const [user,] = useState(JSON.parse(userInfo))
-  const [btnLoading, setBtnLoading] = useState(false);
+  const [user, setUser] = useState(JSON.parse(userInfo))
+  console.log(user)
 
-  const { register, handleSubmit, formState: { errors } } = useForm({ values: user });
+  const [btnLoading, setBtnLoading] = useState(false);
+  const [nativeLanguage, setNativeLanguage] = useState(user.informationTutor?.nativeLanguage)
+  const [teachingLanguages, setTeachingLanguages] = useState(user.informationTutor?.teachingLanguages)
+  const { data: languages, isSuccess } =
+    useGetLanguagesQuery();
+
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm({ values: JSON.parse(userInfo) });
 
   async function onSubmit(data: Inputs) {
+    console.log(data)
     setBtnLoading(true);
     try {
       let resp = await axios.post("/api/tutor/updateSelfInformation", {
@@ -37,11 +52,11 @@ export default function SelfInformation({ userInfo }: any) {
         email: data.email,
         firstName: data.informationTutor.firstName,
         lastName: data.informationTutor.lastName,
-        nativeLanguage: parseInt(data.informationTutor.nativeLanguage),
+        nativeLanguage: nativeLanguage,
         profileImageLink: data.informationTutor.profileImageLink,
         shortInfo: data.informationTutor.shortInfo,
         videoLink: data.informationTutor.videoLink,
-        teachingLanguages: parseInt(data.informationTutor.teachingLanguages),
+        teachingLanguages: teachingLanguages,
       })
 
 
@@ -134,15 +149,46 @@ export default function SelfInformation({ userInfo }: any) {
               {...register("informationTutor.videoLink")}
             />
           </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">teachingLanguages</span>
-            </label>
-            <input
-              placeholder="Type here"
-              className="input input-bordered w-full"
-              {...register("informationTutor.teachingLanguages")}
-            />
+          <div className="flex w-full">
+            <div className="form-control w-1/2">
+              <span className="label-text">Native Language</span>
+              {languages ? languages.map((language: Languages) => (
+                <div className="form-control">
+                  <label className="label cursor-pointer">
+                    <span className="label-text">{language.name}</span>
+                    <input
+                      key={language.id}
+                      type="radio"
+                      name="nativeLanguage"
+                      value={language.id}
+                      className="radio checked:bg-primary"
+                      onChange={() => setNativeLanguage(language.id)}
+                      checked={language.id == nativeLanguage}
+                    />
+                  </label>
+                </div>
+              )) : <></>}
+            </div>
+            <div className="divider divider-horizontal"></div>
+            <div className="form-control w-1/2">
+              <span className="label-text">Teaching Language</span>
+              {languages ? languages.map((language: Languages) => (
+                <div className="form-control">
+                  <label className="label cursor-pointer">
+                    <span className="label-text">{language.name}</span>
+                    <input
+                      key={language.id}
+                      type="radio"
+                      name="teachingLanguages"
+                      value={language.id}
+                      className="radio checked:bg-primary"
+                      onChange={() => setTeachingLanguages(language.id)}
+                      checked={language.id == teachingLanguages}
+                    />
+                  </label>
+                </div>
+              )) : <></>}
+            </div>
           </div>
           <button
             className={`btn text-white w-full btn-primary`}
