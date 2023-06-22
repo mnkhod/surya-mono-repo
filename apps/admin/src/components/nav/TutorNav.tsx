@@ -44,15 +44,15 @@ export default function TutorNav() {
               </li>
             </ul>
           </div>
-          <Link href="/admin/dashboard">
+          <Link href="/tutor/dashboard">
             <span className="btn btn-ghost normal-case text-xl">Surya</span>
           </Link>
           <div className=" hidden lg:flex">
             <div className="divider divider-horizontal"></div>
             <ul className="menu menu-horizontal px-1">
               <li>
-                <Link href="/tutor/dashboard">
-                  <span className={configureActivePage("dashboard")}>Calendar</span>
+                <Link href="/tutor/calendar">
+                  <span className={configureActivePage("calendar")}>Calendar</span>
                 </Link>
               </li>
               <li>

@@ -193,9 +193,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     if (user.isTutor == true && user.informationTutor?.isApproved ) {
-      return { redirect: { destination: "/tutor/dashboard", permanent: false, } };
+      return { redirect: { destination: "/tutor/calendar", permanent: false, } };
     } else if (user.isTutor == true && !user.informationTutor?.isApproved) {
-      return { redirect: { destination: "/tutor/selfInformation", permanent: false, } };
+      return { redirect: { destination: "/tutor/selfInformation", permanent: true, } };
     }
 
     return { props: {} };

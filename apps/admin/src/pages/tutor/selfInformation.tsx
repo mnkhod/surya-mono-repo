@@ -8,6 +8,7 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { alert } from "@/lib/alert";
 import useGetLanguagesQuery from "@/query/useGetAllLanguagesQuery";
+import { ErrorMessage } from '@hookform/error-message';
 
 
 type Inputs = {
@@ -73,6 +74,10 @@ export default function SelfInformation({ userInfo }: any) {
   return (
     <TutorLayout>
       <div className="w-8/12 flex flex-col gap-4">
+        <div className="alert">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>You will not be able to start your sessions until your information is sufficient and approved by admin. To contact admin <a target="_blank" className="link link-primary" href="https://www.facebook.com/surya.application">click here</a>.</span>
+        </div>
         <h1 className="text-2xl font-bold">Edit Tutor</h1>
         <form
           onSubmit={(handleSubmit(onSubmit))}
@@ -85,7 +90,12 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("email")}
+              {...register("email", { required: "This field is required" })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="email"
+              render={({ message }) => <p className="text-red-500">{message}</p>}
             />
           </div>
 
@@ -96,7 +106,12 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("informationTutor.firstName")}
+              {...register("informationTutor.firstName", { required: "This field is required"})}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="informationTutor.firstName"
+              render={({ message }) => <p className="text-red-500">{message}</p>}
             />
           </div>
           <div className="form-control w-full">
@@ -106,7 +121,12 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("informationTutor.lastName")}
+              {...register("informationTutor.lastName", { required: "This field is required"})}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="informationTutor.lastName"
+              render={({ message }) => <p className="text-red-500">{message}</p>}
             />
           </div>
           <div className="form-control w-full">
@@ -116,7 +136,12 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("informationTutor.nativeLanguage")}
+              {...register("informationTutor.nativeLanguage", { required: "This field is required"})}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="informationTutor.nativeLanguage"
+              render={({ message }) => <p className="text-red-500">{message}</p>}
             />
           </div>
           <div className="form-control w-full">
@@ -126,17 +151,27 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("informationTutor.profileImageLink")}
+              {...register("informationTutor.profileImageLink", { required: "This field is required"})}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="informationTutor.profileImageLink"
+              render={({ message }) => <p className="text-red-500">{message}</p>}
             />
           </div>
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">shortInfo</span>
             </label>
-            <input
+            <textarea
               placeholder="Type here"
-              className="input input-bordered w-full"
-              {...register("informationTutor.shortInfo")}
+              className="textarea textarea-bordered w-full"
+              {...register("informationTutor.shortInfo", { required: "This field is required"})}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="informationTutor.shortInfo"
+              render={({ message }) => <p className="text-red-500">{message}</p>}
             />
           </div>
           <div className="form-control w-full">
@@ -146,7 +181,12 @@ export default function SelfInformation({ userInfo }: any) {
             <input
               placeholder="Type here"
               className="input input-bordered w-full"
-              {...register("informationTutor.videoLink")}
+              {...register("informationTutor.videoLink", { required: "This field is required"})}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="informationTutor.videoLink"
+              render={({ message }) => <p className="text-red-500">{message}</p>}
             />
           </div>
           <div className="flex w-full">

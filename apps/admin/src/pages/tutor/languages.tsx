@@ -1,4 +1,5 @@
 import useGetAllTutorsQuery from "@/query/useGetAllTutorsQuery";
+import useGetAllLanguagesQuery from "@/query/useGetAllLanguagesQuery";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import React, { FormEvent, useEffect, useRef, useState } from "react";
@@ -218,26 +219,5 @@ export default function ListTab(
       )}
     </div>
   );
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-
-  const prisma = new PrismaClient();
-
-  
-  let user = await prisma.user.findUnique({
-    where: {
-      email: session.user?.email ?? "",
-    },
-    select: {
-      id: true,
-      email: true,
-      isTutor: true,
-      name: true,
-      informationTutor: true,
-    }
-  });
-
-  return { props: { userInfo: JSON.stringify(user) } };
 }
 
