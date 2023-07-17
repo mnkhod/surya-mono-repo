@@ -1,5 +1,21 @@
 // tailwind.config.js
 
+// pm-1 - 4px
+// pm-1.5 - 6px
+// pm-2 - 8px
+// pm-3 - 12px
+// pm-4 - 16px
+// pm-5 - 20px
+// pm-6 - 24px
+// pm-7 - 28px
+// pm-8 - 32px
+// pm-9 - 36px
+//
+// text-xs - 12px 
+// text-sm - 14px 
+// text-base - 16px 
+// text-lg - 18px 
+
 module.exports = {
   content: [
     "./App.{js,jsx,ts,tsx}",
@@ -11,6 +27,7 @@ module.exports = {
     fontFamily: {
       rubik: ["Rubik", "serif"],
       "rubik-medium": ["Rubik-Medium", "serif"],
+      "rubik-bold": ["Rubik-Bold", "serif"],
     },
     extend: {
       colors: {

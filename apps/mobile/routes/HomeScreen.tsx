@@ -10,6 +10,7 @@ import ProfileTab from "./ProfileTab";
 import HomeIcon from "../assets/icons/HomeIcon.svg";
 import ClassIcon from "../assets/icons/ClassIcon.svg";
 import ProfileIcon from "../assets/icons/ProfileIcon.svg";
+import { StatusBar } from "expo-status-bar";
 
 const MenuTab = createBottomTabNavigator();
 

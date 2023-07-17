@@ -9,6 +9,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
 import { Text, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -18,6 +19,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     "Rubik": require("./assets/font/Rubik-Regular.ttf"),
     "Rubik-Medium": require("./assets/font/Rubik-Medium.ttf"),
+    "Rubik-Bold": require("./assets/font/Rubik-Bold.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -33,6 +35,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <View className="flex-1" onLayout={onLayoutRootView}>
+        <StatusBar />
+
         <Stack.Navigator initialRouteName="Introduction">
           <Stack.Screen
             name="Introduction"
