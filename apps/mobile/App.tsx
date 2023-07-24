@@ -10,6 +10,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
 import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import SearchScreen from "./routes/SearchScreen";
+import NotifScreen from "./routes/NotifScreen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -34,7 +36,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <View className="flex-1" onLayout={onLayoutRootView}>
+      <View className="flex-1 py-12 bg-back-light-primary" onLayout={onLayoutRootView}>
         <StatusBar />
 
         <Stack.Navigator initialRouteName="Introduction">
@@ -46,6 +48,16 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Search"
+            component={SearchScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Notification"
+            component={NotifScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen

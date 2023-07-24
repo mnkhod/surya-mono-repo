@@ -13,8 +13,6 @@ import { inputBtn, roundedOutlineBtn } from "@styles/buttons";
 
 import { Image } from "expo-image";
 import BiometricIcon from "../assets/icons/BiometricIcon.svg";
-import FbLogo from "../assets/brand/fbLogo.png";
-import GmailLogo from "../assets/brand/gmailLogo.png";
 
 export default function SignInTab({ navigation }: SignInTabProp) {
   const [email, setEmail] = useState("");
@@ -51,14 +49,30 @@ export default function SignInTab({ navigation }: SignInTabProp) {
     }
   }
   return (
-    <ScrollView className="bg-back-light-primary flex-1">
-      <View className="bg-back-light-primary px-4 pt-8 flex-1 flex gap-y-8">
-        <View className="flex space-y-4">
+    <ScrollView className="bg-back-light-primary px-4 pt-8 flex-1">
+      <View className="space-y-4">
+        <View className="flex space-y-2">
+          <View className="flex flex-row">
+            <Text className="text-dark-high font-rubik-medium text-xs">
+              Имэйл хаяг
+            </Text>
+            <Text className="pl-0.5 relative bottom-1 text-feedback-error">
+              *
+            </Text>
+          </View>
+          <TextInput
+            className={`${input} w-full`}
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Имэйл хаяг оруулах хэсэг"
+          />
+        </View>
 
+        <View className="flex space-y-3">
           <View className="flex space-y-2">
             <View className="flex flex-row">
               <Text className="text-dark-high font-rubik-medium text-xs">
-                Имэйл хаяг
+                Нууц үг оруулах
               </Text>
               <Text className="pl-0.5 relative bottom-1 text-feedback-error">
                 *
@@ -66,86 +80,34 @@ export default function SignInTab({ navigation }: SignInTabProp) {
             </View>
             <TextInput
               className={`${input} w-full`}
-              onChangeText={setEmail}
-              value={email}
-              placeholder="Имэйл хаяг оруулах хэсэг"
+              onChangeText={setPassword}
+              value={password}
+              passwordRules=""
+              secureTextEntry={true}
+              placeholder="Нууц үг оруулах"
             />
           </View>
-
-          <View className="flex space-y-3">
-            <View className="flex space-y-2">
-              <View className="flex flex-row">
-                <Text className="text-dark-high font-rubik-medium text-xs">
-                  Нууц үг оруулах
-                </Text>
-                <Text className="pl-0.5 relative bottom-1 text-feedback-error">
-                  *
-                </Text>
-              </View>
-              <TextInput
-                className={`${input} w-full`}
-                onChangeText={setPassword}
-                value={password}
-                passwordRules=""
-                secureTextEntry={true}
-                placeholder="Нууц үг оруулах"
-              />
-            </View>
-            <Text className="text-light-low self-end font-rubik text-xs">
-              Нууц үг сэргээх
-            </Text>
-          </View>
-
-          <View className="flex flex-row justify-between w-full">
-            <TouchableOpacity
-              onPress={handleLogin}
-              className={`${inputBtn} flex-grow`}
-            >
-              <Text className="text-dark-low text-base border-none font-rubik-medium">
-                Нэвтрэх
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={handleLogin}
-              className={`${inputBtn} ml-4 w-auto p-3.5`}
-            >
-              <Image source={BiometricIcon} className="w-6 h-6" />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View className="flex flex-row items-center gap-x-2 w-full">
-          <View className="grow h-[2px] bg-light-low rounded"></View>
-          <Text className="text-light-low">
-            Gmail болон фейсбоокээр нэвтрэх
+          <Text className="text-light-low self-end font-rubik text-xs">
+            Нууц үг сэргээх
           </Text>
-          <View className="grow h-[2px] bg-light-low rounded"></View>
         </View>
-        <View className="flex flex-row justify-between space-x-4 w-full">
+
+        <View className="flex flex-row justify-between w-full">
           <TouchableOpacity
             onPress={handleLogin}
-            className={`${roundedOutlineBtn} flex flex-row justify-center gap-x-[4px] grow`}
+            className={`${inputBtn} flex-grow`}
           >
-            <Image source={FbLogo} className="w-6 h-6" />
-            <Text className="text-dark-low text-base border-none font-rubik">
-              Facebook
+            <Text className="text-dark-low text-base border-none font-rubik-medium">
+              Нэвтрэх
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleLogin}
-            className={`${roundedOutlineBtn} flex flex-row justify-center gap-x-[4px] grow`}
+            className={`${inputBtn} ml-4 w-auto p-3.5`}
           >
-            <Image source={GmailLogo} className="w-6 h-6" />
-            <Text className="text-dark-low text-base border-none font-rubik">
-              Gmail
-            </Text>
+            <Image source={BiometricIcon} className="w-6 h-6" />
           </TouchableOpacity>
         </View>
-
-        <View className="space-y-1.5">
-          <Text className="text-primary-light font-rubik text-xs">Want to become a tutor?</Text>
-          <Text className="text-primary text-sm font-rubik-bold text-base">Click here</Text>
-        </View>
-
       </View>
     </ScrollView>
   );

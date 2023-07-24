@@ -19,7 +19,7 @@ export default function IntroductionScreen(
         <View className="flex flex-col px-4 py-8">
           <Image
             source={IntroOneBg}
-            className="h-[310px] w-auto"
+            className="h-[340px] my-10 w-auto"
             contentFit="cover"
           />
 
@@ -49,12 +49,12 @@ export default function IntroductionScreen(
               onPress={() => {
                 setTabState(2);
               }}
-              className="w-[50px]"
+              className="w-[55px]"
             >
               <Image
                 source={IntroButton}
-                className="h-[50px] w-auto bg-dark"
-                contentFit="contain"
+                className="h-[55px] w-auto bg-dark"
+                contentFit="cover"
               />
             </TouchableOpacity>
           </View>
@@ -65,7 +65,7 @@ export default function IntroductionScreen(
         <View className="flex flex-col px-4 py-8">
           <Image
             source={IntroTwoBg}
-            className="h-[310px] w-auto"
+            className="h-[340px] my-10 w-auto"
             contentFit="cover"
           />
 
@@ -94,11 +94,11 @@ export default function IntroductionScreen(
               onPress={() => {
                 setTabState(3);
               }}
-              className="w-[50px]"
+              className="w-[55px]"
             >
               <Image
                 source={IntroButton}
-                className="h-[50px] w-auto bg-dark"
+                className="h-[55px] w-auto bg-dark"
                 contentFit="contain"
               />
             </TouchableOpacity>
@@ -110,7 +110,7 @@ export default function IntroductionScreen(
         <View className="flex flex-col px-4 py-8">
           <Image
             source={IntroThreeBg}
-            className="h-[310px] w-auto"
+            className="h-[340px] my-10 w-auto"
             contentFit="cover"
           />
 
@@ -140,12 +140,12 @@ export default function IntroductionScreen(
               onPress={() => {
                 navigation.navigate("Login");
               }}
-              className="w-[50px]"
+              className="w-[55px]"
             >
               <Image
                 source={IntroButton}
-                className="h-[50px] w-auto bg-dark"
-                contentFit="contain"
+                className="h-[55px] w-auto bg-dark"
+                contentFit="cover"
               />
             </TouchableOpacity>
           </View>
