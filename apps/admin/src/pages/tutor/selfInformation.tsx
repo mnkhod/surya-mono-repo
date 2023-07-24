@@ -9,6 +9,7 @@ import axios from "axios";
 import { alert } from "@/lib/alert";
 import useGetLanguagesQuery from "@/query/useGetAllLanguagesQuery";
 import { ErrorMessage } from '@hookform/error-message';
+import { CustomInputForm } from "@/components/ui/forms";
 
 
 type Inputs = {
@@ -33,7 +34,6 @@ type Languages = {
 export default function SelfInformation({ userInfo }: any) {
 
   const [user, setUser] = useState(JSON.parse(userInfo))
-  console.log(user)
 
   const [btnLoading, setBtnLoading] = useState(false);
   const [nativeLanguage, setNativeLanguage] = useState(user.informationTutor?.nativeLanguage)
@@ -50,7 +50,6 @@ export default function SelfInformation({ userInfo }: any) {
       let resp = await axios.post("/api/tutor/updateSelfInformation", {
         rootUserId: user.id,
         tutorId: user.informationTutor.id,
-        email: data.email,
         firstName: data.informationTutor.firstName,
         lastName: data.informationTutor.lastName,
         nativeLanguage: nativeLanguage,
@@ -83,82 +82,9 @@ export default function SelfInformation({ userInfo }: any) {
           onSubmit={(handleSubmit(onSubmit))}
           className="flex flex-col gap-3"
         >
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              placeholder="Type here"
-              className="input input-bordered w-full"
-              {...register("email", { required: "This field is required" })}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="email"
-              render={({ message }) => <p className="text-red-500">{message}</p>}
-            />
-          </div>
-
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">firstName</span>
-            </label>
-            <input
-              placeholder="Type here"
-              className="input input-bordered w-full"
-              {...register("informationTutor.firstName", { required: "This field is required"})}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="informationTutor.firstName"
-              render={({ message }) => <p className="text-red-500">{message}</p>}
-            />
-          </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">lastName</span>
-            </label>
-            <input
-              placeholder="Type here"
-              className="input input-bordered w-full"
-              {...register("informationTutor.lastName", { required: "This field is required"})}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="informationTutor.lastName"
-              render={({ message }) => <p className="text-red-500">{message}</p>}
-            />
-          </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">nativeLanguage</span>
-            </label>
-            <input
-              placeholder="Type here"
-              className="input input-bordered w-full"
-              {...register("informationTutor.nativeLanguage", { required: "This field is required"})}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="informationTutor.nativeLanguage"
-              render={({ message }) => <p className="text-red-500">{message}</p>}
-            />
-          </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">profileImageLink</span>
-            </label>
-            <input
-              placeholder="Type here"
-              className="input input-bordered w-full"
-              {...register("informationTutor.profileImageLink", { required: "This field is required"})}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="informationTutor.profileImageLink"
-              render={({ message }) => <p className="text-red-500">{message}</p>}
-            />
-          </div>
+          <CustomInputForm register={register} errors={errors} inputLabel="First Name" registerName="informationTutor.firstName" /> 
+          <CustomInputForm register={register} errors={errors} inputLabel="Last Name" registerName="informationTutor.lastName" /> 
+          <CustomInputForm register={register} errors={errors} inputLabel="Profile image link" registerName="informationTutor.profileImageLink" /> 
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">shortInfo</span>

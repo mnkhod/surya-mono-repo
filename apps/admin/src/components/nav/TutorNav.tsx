@@ -1,4 +1,4 @@
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Icon } from "@iconify/react";
 import React, { useMemo } from "react";
 import { useRouter } from "next/router";
@@ -13,6 +13,8 @@ export default function TutorNav() {
     },
     [router]
   );
+
+  const { data: session, status } = useSession()
 
   return (
     <div className="pt-12 w-11/12">
@@ -50,9 +52,14 @@ export default function TutorNav() {
           <div className=" hidden lg:flex">
             <div className="divider divider-horizontal"></div>
             <ul className="menu menu-horizontal px-1">
+            <li>
+                <Link href="/tutor/lessons">
+                  <span className={configureActivePage("lessons")}>Lessons</span>
+                </Link>
+              </li>
               <li>
-                <Link href="/tutor/calendar">
-                  <span className={configureActivePage("calendar")}>Calendar</span>
+                <Link href="/tutor/schedules">
+                  <span className={configureActivePage("schedules")}>Schedules</span>
                 </Link>
               </li>
               <li>
@@ -73,7 +80,7 @@ export default function TutorNav() {
             <Icon className="w-auto h-7" icon="ic:baseline-exit-to-app" />
           </button>
           <div className="divider divider-horizontal"></div>
-          <p>Admin</p>
+          <p>{session?.user?.name}</p>
         </div>
       </div>
     </div>
