@@ -53,6 +53,8 @@ model InformationTutor {
   // TODO After migration to Postgresql, needed to be teachingLanguages Int[]
   teachingLanguages Int?
   isApproved Boolean @default(false)
+  lessonP2P LessonP2P[]
+  lessonGroup LessonGroup[]
 }
 
 model InformationAdmin {
@@ -69,4 +71,50 @@ model ConfigLanguages {
   id Int @id @default(autoincrement())
   name String
   flagSVGLink String
+}
+
+model LessonP2P {
+  id Int @id @default(autoincrement())
+  title String
+  information String
+  tutor InformationTutor? @relation(fields: [tutorId], references: [id])
+  tutorId Int
+  schedules SchedulesP2P[]
+}
+
+model LessonGroup {
+  id Int @id @default(autoincrement())
+  title String
+  information String
+  tutor InformationTutor? @relation(fields: [tutorId], references: [id])
+  tutorId Int
+  schedules SchedulesGroup[]
+  endDate DateTime
+  registrationEndDate DateTime
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model SchedulesP2P {
+  id Int @id @default(autoincrement())
+  meetingDate DateTime
+  meetingLink String?
+  lesson LessonP2P @relation(fields: [lessonId], references: [id])
+  lessonId Int
+  isDemo Boolean
+  isPeer Boolean @default(true)
+  isAvailable Boolean @default(true)
+  durationByMinutes Int @default(60)
+}
+
+model SchedulesGroup {
+  id Int @id @default(autoincrement())
+  lesson LessonGroup @relation(fields: [lessonId], references: [id])
+  lessonId Int
+  meetingDate DateTime
+  meetingLink String?
+  isDemo Boolean
+  isPeer Boolean @default(true)
+  isAvailable Boolean @default(true)
+  durationByMinutes Int @default(60)
 }

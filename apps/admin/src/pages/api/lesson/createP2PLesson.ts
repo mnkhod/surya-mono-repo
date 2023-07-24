@@ -2,22 +2,19 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-
 export default async function handler(req: any, res: any) {
-  let { id, isApproved } = req.body
+  let { title, information, tutorId } = req.body
 
-  if(!id) res.status(501).json({})
+  if (!tutorId) res.status(501).json({})
 
   try {
-    await prisma.informationTutor.update({
-      where: {
-        id,
-      },
+    await prisma.lessonP2P.create({
       data: {
-        isApproved
-      }
-    });
-
+        title,
+        information,
+        tutorId,
+      },
+    })
 
     res.status(200).json({});
   } catch (e) {
