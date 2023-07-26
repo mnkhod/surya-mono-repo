@@ -20,7 +20,6 @@ import PeopleIcon from "../svg/PeopleIcon";
 import OrderButtonBackgroundAsset from "../svg/OrderButtonBackgroundAsset";
 import { SingleCourseProp } from "../types/NavigationTypes";
 import ReplyIcon from "../svg/ReplyIcon";
-import HeartIcon from "../svg/HeartIcon";
 import CommentHeartIcon from "../svg/CommentHeartIcon";
 import CommentShareIcon from "../svg/CommentShareIcon";
 import ReplyBackIcon from "../svg/ReplyBackIcon";
@@ -196,7 +195,7 @@ export default function SingleCourse({ navigation }: SingleCourseProp) {
             </View>
           </View>
 
-          <View className="py-6 flex flex-row relative items-center px-4 border border-stroke-light rounded-2xl shadow-xl">
+          <View className="py-6 flex flex-row relative items-center px-4 border border-stroke-light rounded-2xl">
             <View>
               <Text className="font-rubik-bold text-primary text-2xl">
                 Групп сургалт
@@ -401,7 +400,7 @@ export default function SingleCourse({ navigation }: SingleCourseProp) {
               Үнэ төлбөргүй (2 эрх байна)
             </Text>
           </View>
-          <TouchableOpacity className="flex items-end justify-center grow overflow-hidden">
+          <TouchableOpacity className="flex items-end justify-center grow overflow-hidden" onPress={() => { navigation.navigate("ChooseTrialClass")}}>
             <View className="flex items-center justify-center grow w-[140px] h-[52px]">
               <OrderButtonBackgroundAsset className="z-1 absolute right-0" />
               <Text className="text-white font-rubik-bold">Захиалах</Text>

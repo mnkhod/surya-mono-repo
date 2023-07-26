@@ -13,6 +13,7 @@ import { StatusBar } from "expo-status-bar";
 import SearchScreen from "./routes/SearchScreen";
 import NotifScreen from "./routes/NotifScreen";
 import SingleCourse from "./routes/SingleCourse";
+import ChooseTrialClass from "./routes/ChooseTrialClass";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,7 +44,7 @@ export default function App() {
       >
         <StatusBar />
 
-        <Stack.Navigator initialRouteName="Introduction">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Introduction"
             component={IntroductionScreen}
@@ -72,6 +73,11 @@ export default function App() {
           <Stack.Screen
             name="SingleCourse"
             component={SingleCourse}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ChooseTrialClass"
+            component={ChooseTrialClass}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -66,7 +66,7 @@ export default function SingleCourseTab({ navigation }: SingleCourseTabProp) {
 
             <View className="p-4 flex-row justify-between space-x-4">
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => { navigation.navigate("ChooseTrialClass")}}
                 className="w-6/12 py-2 border-2 rounded-lg border-primary"
               >
                 <Text className="text-center text-primary font-rubik-bold">

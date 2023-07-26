@@ -9,6 +9,7 @@ export type RootStackParamList = {
   ClassTabProp: undefined;
   SingleCourseTab: undefined;
   SingleCourse: undefined;
+  ChooseTrialClass: undefined;
 };
 
 export type IntroductionScreenProp = NativeStackScreenProps<
@@ -20,6 +21,12 @@ export type SignInTabProp = NativeStackScreenProps<
   RootStackParamList,
   "Login",
   "LoginTabStack"
+>;
+
+export type ChooseTrialClassProp = NativeStackScreenProps<
+  RootStackParamList,
+  "ChooseTrialClass",
+  "RootStack"
 >;
 
 export type HomeTabProp = NativeStackScreenProps<
