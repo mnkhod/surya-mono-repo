@@ -7,9 +7,7 @@ import IntroThreeBg from "../assets/IntroThreeBg.png";
 import IntroButton from "../assets/IntroButton.png";
 import { Image } from "expo-image";
 
-export default function IntroductionScreen(
-  { navigation }: IntroductionScreenProp,
-) {
+export default function IntroductionScreen( { navigation }: IntroductionScreenProp) {
   const [tabState, setTabState] = useState(1);
   const [maxTabState] = useState(3);
 

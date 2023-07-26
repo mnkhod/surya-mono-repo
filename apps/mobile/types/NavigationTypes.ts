@@ -1,4 +1,8 @@
-import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ParamListBase, RouteProp } from "@react-navigation/native";
+import type {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -12,28 +16,41 @@ export type RootStackParamList = {
   ChooseTrialClass: undefined;
 };
 
-export type IntroductionScreenProp = NativeStackScreenProps<
-  RootStackParamList,
-  "Introduction",
-  "RootStack"
->;
-export type SignInTabProp = NativeStackScreenProps<
-  RootStackParamList,
-  "Login",
-  "LoginTabStack"
->;
+export type IntroductionScreenProp = {
+  route: RouteProp<ParamListBase, "Introduction">;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    "Introduction",
+    "RootStack"
+  >;
+};
 
-export type ChooseTrialClassProp = NativeStackScreenProps<
-  RootStackParamList,
-  "ChooseTrialClass",
-  "RootStack"
->;
+export type SignInTabProp = {
+  route: RouteProp<ParamListBase, "Login">;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    "Login",
+    "LoginTabStack"
+  >;
+};
+export type ChooseTrialClassProp = {
+  route: RouteProp<ParamListBase, "ChooseTrialClass">;
+  setShowAlert : Function,
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    "ChooseTrialClass",
+    "RootStack"
+  >;
+};
+export type HomeTabProp = {
+  route: RouteProp<ParamListBase, "Home">;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    "Home",
+    "HomeTabStack"
+  >;
+};
 
-export type HomeTabProp = NativeStackScreenProps<
-  RootStackParamList,
-  "Home",
-  "HomeTabStack"
->;
 export type SingleCourseTabProp = NativeStackScreenProps<
   RootStackParamList,
   "SingleCourseTab",

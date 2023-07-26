@@ -6,9 +6,9 @@ import ContinueButtonAsset from "../svg/ContinueButtonAsset";
 import { ChooseTrialClassProp } from "../types/NavigationTypes";
 import CheckIcon from "../svg/CheckIcon";
 
-export default function ChooseTrialClass({ navigation }: ChooseTrialClassProp) {
+export default function ChooseTrialClass({ navigation,setShowAlert }: ChooseTrialClassProp) {
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1 relative z-1 bg-white">
       <View className="px-4">
         <View className="py-3 flex flex-row items-center justify-center">
           <TouchableOpacity
@@ -65,7 +65,7 @@ export default function ChooseTrialClass({ navigation }: ChooseTrialClassProp) {
           </View>
         </View>
       </View>
-      <TouchableOpacity className="grow flex items-center justify-end">
+      <TouchableOpacity className="grow flex items-center justify-end" onPress={() => { setShowAlert(true) }}>
         <View className="w-[170px] h-[55px] justify-center items-center">
           <ContinueButtonAsset className="absolute top-0 right-0" />
           <Text className="text-white font-rubik-bold">Үргэлжлүүлэх</Text>
