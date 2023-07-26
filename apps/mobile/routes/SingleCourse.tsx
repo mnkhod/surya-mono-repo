@@ -79,7 +79,7 @@ export default function SingleCourse({ navigation }: SingleCourseProp) {
           </View>
 
           <View className="grow flex flex-row items-center justify-end">
-            <TouchableOpacity className="flex bg-white flex-row items-center px-4 py-2 rounded space-x-2">
+            <TouchableOpacity className="flex bg-white flex-row items-center px-4 py-2 rounded space-x-2" onPress={() => { navigation.navigate("ChooseClass")}}>
               <Text className="text-primary text-base font-rubik-medium">
                 Хичээл авах
               </Text>

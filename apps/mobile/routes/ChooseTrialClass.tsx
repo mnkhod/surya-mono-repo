@@ -1,26 +1,16 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import ChevronLeftIcon from "../svg/ChevronLeftIcon";
 import { range } from "radash";
 import ContinueButtonAsset from "../svg/ContinueButtonAsset";
 import { ChooseTrialClassProp } from "../types/NavigationTypes";
 import CheckIcon from "../svg/CheckIcon";
+import Header from "../components/Header";
 
 export default function ChooseTrialClass({ navigation,setShowAlert }: ChooseTrialClassProp) {
   return (
     <View className="flex-1 relative z-1 bg-white">
       <View className="px-4">
-        <View className="py-3 flex flex-row items-center justify-center">
-          <TouchableOpacity
-            className="p-2 absolute left-0"
-            onPress={() => {
-              navigation.goBack();
-            }}
-          >
-            <ChevronLeftIcon />
-          </TouchableOpacity>
-          <Text className="font-rubik-bold text-xl">Туршилтын хичээл</Text>
-        </View>
+        <Header nav={navigation} title={"Туршилтын хичээл"} />
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <View className="flex flex-row items-center space-x-4 pt-2 pb-4">
             <TouchableOpacity className="space-y-1">

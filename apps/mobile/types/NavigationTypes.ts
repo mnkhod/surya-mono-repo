@@ -14,6 +14,7 @@ export type RootStackParamList = {
   SingleCourseTab: undefined;
   SingleCourse: undefined;
   ChooseTrialClass: undefined;
+  ChooseClass: undefined;
 };
 
 export type IntroductionScreenProp = {
@@ -39,6 +40,15 @@ export type ChooseTrialClassProp = {
   navigation: NativeStackNavigationProp<
     RootStackParamList,
     "ChooseTrialClass",
+    "RootStack"
+  >;
+};
+
+export type ChooseClassProp = {
+  route: RouteProp<ParamListBase, "ChooseClass">;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    "ChooseClass",
     "RootStack"
   >;
 };

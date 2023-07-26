@@ -16,11 +16,14 @@ import SingleCourse from "./routes/SingleCourse";
 import ChooseTrialClass from "./routes/ChooseTrialClass";
 import ExitAlertIcon from "./svg/ExitAlertIcon";
 import AlertSuccessIcon from "./svg/AlertSuccessIcon";
-
+import ChooseClass from "./routes/ChooseClass";
+import moment from "moment";
+import "moment/locale/mn"
 
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator();
+moment.locale("mn")
 
 export default function App() {
   const [showAlert, setShowAlert] = useState(false);
@@ -86,6 +89,15 @@ export default function App() {
           >
             {(props) => (
               <ChooseTrialClass setShowAlert={setShowAlert} {...props} />
+            )}
+          </Stack.Screen>
+
+          <Stack.Screen
+            name="ChooseClass"
+            options={{ headerShown: false }}
+          >
+            {(props) => (
+              <ChooseClass {...props} />
             )}
           </Stack.Screen>
         </Stack.Navigator>
