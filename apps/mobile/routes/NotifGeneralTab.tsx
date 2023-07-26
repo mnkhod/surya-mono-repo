@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import React from "react";
 
 import ChevronRightIcon from "../svg/ChevronRightIcon";
@@ -7,7 +7,7 @@ export default function NotifGeneralTab() {
   return (
     <ScrollView className="p-4 flex-1 bg-white">
       {[1, 2].map((item) => (
-      <View className="flex items-center flex-row space-x-2 py-3">
+      <View key={item} className="flex items-center flex-row space-x-2 py-3">
         <View className="m-2 bg-feedback-info h-[8px] w-[8px] rounded-full">
         </View>
         <View className="grow flex space-y-3">

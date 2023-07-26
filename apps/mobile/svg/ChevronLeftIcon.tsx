@@ -8,7 +8,7 @@ const ChevronLeftIcon = (props: SvgProps) => (
     {...props}
   >
     <Path
-      fill="#262626"
+      fill={props.fill ?? "#262626"}
       d="m3.633 8 5.775 5.776-1.65 1.65L.333 8 7.758.576l1.65 1.65L3.633 8Z"
     />
   </Svg>

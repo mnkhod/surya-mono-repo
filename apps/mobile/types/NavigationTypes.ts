@@ -7,6 +7,8 @@ export type RootStackParamList = {
   Search: undefined;
   Notification: undefined;
   ClassTabProp: undefined;
+  SingleCourseTab: undefined;
+  SingleCourse: undefined;
 };
 
 export type IntroductionScreenProp = NativeStackScreenProps<
@@ -24,6 +26,16 @@ export type HomeTabProp = NativeStackScreenProps<
   RootStackParamList,
   "Home",
   "HomeTabStack"
+>;
+export type SingleCourseTabProp = NativeStackScreenProps<
+  RootStackParamList,
+  "SingleCourseTab",
+  "HomeTabStack"
+>;
+export type SingleCourseProp = NativeStackScreenProps<
+  RootStackParamList,
+  "SingleCourse",
+  "RootStack"
 >;
 export type ClassTabProp = NativeStackScreenProps<
   RootStackParamList,

@@ -5,8 +5,9 @@ import SingleCourseDummyBG from "../assets/SingleCourseDummyBG.png";
 import CountryFlag from "../assets/CountryFlag.png";
 import RatingStar from "../assets/RatingStar.png";
 import PlayVideoButton from "../assets/PlayVideoButton.png";
+import { SingleCourseTabProp } from "../types/NavigationTypes";
 
-export default function SingleCourseTab() {
+export default function SingleCourseTab({ navigation }: SingleCourseTabProp) {
   return (
     <ScrollView className="bg-back-light-secondary flex flex-col gap-6 px-4 flex-1">
       <View className="flex pt-6 px-4 space-y-6">
@@ -73,7 +74,7 @@ export default function SingleCourseTab() {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => { navigation.navigate("SingleCourse") }}
                 className="grow py-2 bg-primary rounded-lg"
               >
                 <Text className="text-center font-rubik-bold text-white">
