@@ -5,7 +5,7 @@ import ScheduleList from "@/components/tutor/P2PSchedules/ScheduleList";
 import Calendar from "@/components/tutor/P2PSchedules/Calendar";
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-material.css"; // Optional theme CSS
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useTutorP2PSchedulesQuery from "@/query/getTutorP2PSchedulesQuery";
 import { useSession } from "next-auth/react";
 
@@ -13,13 +13,15 @@ export default function Schedules() {
 
   const { data: session, status } = useSession()
 
-  console.log(session, "yag email ni mun ymu")
-
   const [tabIndex, setTabIndex] = useState(0);
   const [row, setRow] = useState({});
 
-  const { data: schedules, isSuccess } =
-    useTutorP2PSchedulesQuery(session?.user.informationTutor.id)
+  if(status == 'loading') {
+    return <title>Unauthorized</title>
+  }
+
+  // const { data: schedules, isSuccess } =
+  //   useTutorP2PSchedulesQuery(session?.user.informationTutor.id)
 
   return (
     <TutorLayout>
