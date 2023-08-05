@@ -1,9 +1,15 @@
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
 import { SignInTabProp } from "../types/NavigationTypes";
 import { input } from "@styles/inputs";
-import { inputBtn } from "@styles/buttons";
+import { inputBtn, roundedOutlineBtn } from "@styles/buttons";
 
 import { Image } from "expo-image";
 import BiometricIcon from "../assets/icons/BiometricIcon.svg";
@@ -43,9 +49,9 @@ export default function SignInTab({ navigation }: SignInTabProp) {
     }
   }
   return (
-    <View className="bg-back-light-primary px-4 flex-1">
-      <View className="py-8 gap-y-3">
-        <View className="flex gap-y-4">
+    <ScrollView className="bg-back-light-primary px-4 pt-8 flex-1">
+      <View className="space-y-4">
+        <View className="flex space-y-2">
           <View className="flex flex-row">
             <Text className="text-dark-high font-rubik-medium text-xs">
               Имэйл хаяг
@@ -61,27 +67,31 @@ export default function SignInTab({ navigation }: SignInTabProp) {
             placeholder="Имэйл хаяг оруулах хэсэг"
           />
         </View>
-        <View className="flex gap-y-4">
-          <View className="flex flex-row">
-            <Text className="text-dark-high font-rubik-medium text-xs">
-              Нууц үг оруулах
-            </Text>
-            <Text className="pl-0.5 relative bottom-1 text-feedback-error">
-              *
-            </Text>
+
+        <View className="flex space-y-3">
+          <View className="flex space-y-2">
+            <View className="flex flex-row">
+              <Text className="text-dark-high font-rubik-medium text-xs">
+                Нууц үг оруулах
+              </Text>
+              <Text className="pl-0.5 relative bottom-1 text-feedback-error">
+                *
+              </Text>
+            </View>
+            <TextInput
+              className={`${input} w-full`}
+              onChangeText={setPassword}
+              value={password}
+              passwordRules=""
+              secureTextEntry={true}
+              placeholder="Нууц үг оруулах"
+            />
           </View>
-          <TextInput
-            className={`${input} w-full`}
-            onChangeText={setPassword}
-            value={password}
-            passwordRules=""
-            secureTextEntry={true}
-            placeholder="Нууц үг оруулах"
-          />
-          <Text className="text-dark-low self-end font-rubik text-xs">
+          <Text className="text-light-low self-end font-rubik text-xs">
             Нууц үг сэргээх
           </Text>
         </View>
+
         <View className="flex flex-row justify-between w-full">
           <TouchableOpacity
             onPress={handleLogin}
@@ -99,6 +109,6 @@ export default function SignInTab({ navigation }: SignInTabProp) {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }

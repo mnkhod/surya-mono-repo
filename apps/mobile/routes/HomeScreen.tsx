@@ -1,17 +1,21 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image } from "expo-image";
 
 import HomeTab from "./HomeTab";
 import ClassTab from "./ClassTab";
 import ProfileTab from "./ProfileTab";
 
-import HomeIcon from "../assets/icons/HomeIcon.svg";
-import ClassIcon from "../assets/icons/ClassIcon.svg";
-import ProfileIcon from "../assets/icons/ProfileIcon.svg";
+import HomeIcon from "../svg/HomeIcon";
+import ClassIcon from "../svg/ClassIcon";
+import ProfileIcon from "../svg/ProfileIcon";
 
 const MenuTab = createBottomTabNavigator();
+
+const TabLabelStyle = {
+  fontFamily: "Rubik-Bold",
+  fontSize: 12,
+};
 
 export default function HomeScreen() {
   return (
@@ -19,15 +23,24 @@ export default function HomeScreen() {
       <MenuTab.Navigator
         screenOptions={{
           headerShown: false,
-          tabBarStyle:{
-            height: 70, 
+          tabBarStyle: {
+            backgroundColor:"white",
+            paddingTop: 7,
+            borderTopLeftRadius: 24,
+            borderTopRightRadius: 24,
+            borderLeftWidth: 0.2,
+            borderRightWidth: 0.2,
+            position: "absolute",
+            overflow: "hidden",
+
+            height: 58,
+            borderTopWidth: 0,
           },
-          tabBarIconStyle:{
-            paddingBottom: 0, 
+          tabBarActiveTintColor: "#3D38BC",
+          tabBarInactiveTintColor: "#C7C5EB",
+          tabBarIconStyle: {
+            backgroundColor: "red",
           },
-          tabBarLabelStyle: {
-            paddingBottom: 10,
-          }
         }}
       >
         <MenuTab.Screen
@@ -35,7 +48,10 @@ export default function HomeScreen() {
           component={HomeTab}
           options={{
             tabBarLabel: "Нүүр",
-            tabBarIcon: ({}) => <Image source={HomeIcon} className="w-6 h-6" />,
+            tabBarLabelStyle: TabLabelStyle,
+            tabBarIcon: ({ focused, color, size }) => (
+              <HomeIcon fill={focused ? "#3D38BC" : "black"} />
+            ),
           }}
         />
         <MenuTab.Screen
@@ -43,11 +59,9 @@ export default function HomeScreen() {
           component={ClassTab}
           options={{
             tabBarLabel: "Хичээл",
-            tabBarIcon: ({}) => (
-              <Image
-                source={ClassIcon}
-                className="w-6 h-6"
-              />
+            tabBarLabelStyle: TabLabelStyle,
+            tabBarIcon: ({ focused, color, size }) => (
+              <ClassIcon fill={focused ? "#3D38BC" : "black"} />
             ),
           }}
         />
@@ -56,11 +70,9 @@ export default function HomeScreen() {
           component={ProfileTab}
           options={{
             tabBarLabel: "Миний",
-            tabBarIcon: ({}) => (
-              <Image
-                source={ProfileIcon}
-                className="w-6 h-6"
-              />
+            tabBarLabelStyle: TabLabelStyle,
+            tabBarIcon: ({ focused, color, size }) => (
+              <ProfileIcon fill={focused ? "#3D38BC" : "black"} />
             ),
           }}
         />
