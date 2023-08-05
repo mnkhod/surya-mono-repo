@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 
 export default async function handler(req : any, res : any) {
   let { email,username,password } = req.body
+  console.log(req.body)
 
   if(!email || !username || !password) res.status(501)
 

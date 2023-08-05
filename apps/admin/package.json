@@ -40,6 +40,7 @@
     "daisyui": "^3.0.1",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
+    "jsonwebtoken": "^9.0.1",
     "lucide-react": "^0.224.0",
     "moment": "^2.29.4",
     "next": "13.2.4",
@@ -47,6 +48,7 @@
     "postcss": "8.4.24",
     "radash": "^10.8.1",
     "react": "18.2.0",
+    "react-big-calendar": "^1.8.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.44.1",
     "react-query": "^3.39.3",
@@ -59,6 +61,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
     "@iconify/react": "^4.1.0",
+    "@types/jsonwebtoken": "^9.0.2",
     "dotenv-cli": "^7.2.1",
     "prisma": "^4.14.1",
     "tailwindcss": "^3.3.2",
