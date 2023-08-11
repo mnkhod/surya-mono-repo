@@ -8,17 +8,16 @@ import "ag-grid-community/styles/ag-theme-material.css"; // Optional theme CSS
 import { useEffect, useState } from "react";
 import useTutorP2PSchedulesQuery from "@/query/getTutorP2PSchedulesQuery";
 import { useSession } from "next-auth/react";
+import Attendances from "@/components/tutor/Attendance/Attendances";
+import RegisterAttendanceRegister from "@/components/tutor/Attendance/RegisterAttendanceRegister";
 
-export default function Schedules() {
+export default function AttendanceRegistration() {
 
   const { data: session, status } = useSession()
 
-  const [tabIndex, setTabIndex] = useState(3);
+  const [tabIndex, setTabIndex] = useState(0);
   const [row, setRow] = useState({});
 
-  if(status == 'loading') {
-    return <title>Unauthorized</title>
-  }
   return (
     <TutorLayout>
       <div className="card w-full shadow-xl">
@@ -26,21 +25,12 @@ export default function Schedules() {
           <div className="tabs">
             <button
               onClick={() => {
-                setTabIndex(3);
-              }}
-              className={`tab tab-lifted ${tabIndex == 3 && "tab-active"
-                } font-bold`}
-            >
-              Calendar
-            </button>
-            <button
-              onClick={() => {
                 setTabIndex(0);
               }}
               className={`tab tab-lifted ${tabIndex == 0 && "tab-active"
                 } font-bold`}
             >
-              List of schedules
+              Unregistered
             </button>
             <button
               onClick={() => {
@@ -49,10 +39,9 @@ export default function Schedules() {
               className={`tab tab-lifted ${tabIndex == 1 && "tab-active"
                 } font-bold`}
             >
-              Create schedule
+              Registered
             </button>
             <button
-              disabled={tabIndex != 2}
               title="To edit, choose from list"
               onClick={() => {
                 setTabIndex(2);
@@ -60,13 +49,22 @@ export default function Schedules() {
               className={`tab tab-lifted ${tabIndex == 2 && "tab-active"
                 } font-bold`}
             >
-              Edit schedule
+              All
+            </button>
+            <button
+              disabled={tabIndex != 3}
+              title="To edit, choose from list"
+              onClick={() => {
+                setTabIndex(3);
+              }}
+              className={`tab tab-lifted ${tabIndex == 3 && "tab-active"
+                } font-bold`}
+            >
+              Register Attendance State
             </button>
           </div>
-          {tabIndex == 0 && <ScheduleList tabIndex={tabIndex} setRow={setRow} setTabIndex={setTabIndex} />}
-          {tabIndex == 1 && <CreateScheduleForm />}
-          {tabIndex == 2 && <EditScheduleForm row={row} setTabIndex={setTabIndex} />}
-          {tabIndex == 3 && <Calendar />}
+          <Attendances tabIndex={tabIndex} setTabIndex={setTabIndex} setRow={setRow} />
+          <RegisterAttendanceRegister setTabIndex={setTabIndex} row={row} />
         </div>
       </div>
     </TutorLayout>

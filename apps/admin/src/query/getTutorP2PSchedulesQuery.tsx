@@ -15,6 +15,7 @@ export default function useTutorP2PSchedulesQuery(tutorId: number) {
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       refetchOnMount: false,
+      suspense: true
     }
   );
 }

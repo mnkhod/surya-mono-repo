@@ -3,19 +3,21 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 import { alert } from "@/lib/alert";
+import { useSession } from "next-auth/react";
 
 type Inputs = {
   meetingDate: string;
   durationByMinutes: string;
   isPeer: string;
   isDemo: string;
-  lessonId: string;
 };
 
 export default function CreateScheduleForm(
 ) {
   const [btnLoading, setBtnLoading] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+
+  const { data: session, status } = useSession()
 
   async function onSubmit(data: Inputs) {
     setBtnLoading(true);
@@ -24,11 +26,11 @@ export default function CreateScheduleForm(
     try {
       let resp = await axios.post("/api/schedule/createP2PSchedule", {
         meetingDate: data.meetingDate,
-        lessonId: data.lessonId,
         isDemo: data.isDemo == "1" ? true : false,
         isPeer: data.isPeer == "1" ? true : false,
         isAvailable: true,
-        durationByMinutes: data.durationByMinutes
+        durationByMinutes: data.durationByMinutes,
+        tutorId: session?.user?.informationTutor?.id
       });
 
       if (resp.status == 200) {
@@ -49,18 +51,6 @@ export default function CreateScheduleForm(
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-2 w-full"
         >
-          <div className="form-control w-4/12">
-            <label className="label">
-              <span className="label-text">Choose lesson</span>
-            </label>
-            <input
-              placeholder="Enter lesson id"
-              type="text"
-              className="input input-bordered w-full"
-              {...register("lessonId")}
-            />
-          </div>
-
           <div className="form-control w-4/12">
             <label className="label">
               <span className="label-text">Meeting Date</span>

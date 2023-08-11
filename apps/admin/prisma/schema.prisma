@@ -99,6 +99,7 @@ model SchedulesP2P {
   isPeer Boolean @default(true)
   isAvailable Boolean @default(true)
   durationByMinutes Int @default(60)
+  attendanceState String?
 }
 
 model SchedulesGroup {
