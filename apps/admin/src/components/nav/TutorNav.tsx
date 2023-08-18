@@ -67,6 +67,16 @@ export default function TutorNav() {
                   <span className={configureActivePage("selfInformation")}>Self Information</span>
                 </Link>
               </li>
+              <li>
+                <Link href="/tutor/attendanceRegistration">
+                  <span className={configureActivePage("attendanceRegistration")}>Attendances</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/tutor/students">
+                  <span className={configureActivePage("students")}>Students</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

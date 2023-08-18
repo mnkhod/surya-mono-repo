@@ -5,7 +5,7 @@ export default function useGetAllStudentsQuery() {
   return useQuery(
     {
       queryKey: "allStudents",
-      queryFn: () => axios.get("/api/student/getAll").then((res) => {
+      queryFn: () => axios.get("/api/students/getAll").then((res) => {
         console.log(res.data)
         return res.data
       }),

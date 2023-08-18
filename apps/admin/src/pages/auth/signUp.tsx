@@ -20,7 +20,7 @@ export default function signUp() {
 
   async function onSubmit(data: Inputs) {
     try {
-      let result = await axios.post("/api/register/admin",{
+      let result = await axios.post("/api/register/tutor",{
         email: data.email,
         username: data.username,
         password: data.password,
@@ -43,7 +43,7 @@ export default function signUp() {
               <div className="mt-3 text-left sm:mt-5">
                 <div className="inline-flex items-center w-full">
                   <h3 className="text-lg font-bold text-neutral-600 l eading-6 lg:text-5xl">
-                    Sign up
+                    Sign up as tutor
                   </h3>
                 </div>
                 <div className="mt-4 text-base text-gray-500">

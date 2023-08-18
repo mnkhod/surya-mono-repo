@@ -86,6 +86,15 @@ export default function signInPage() {
                 <button type="submit" className="btn btn-secondary">
                   Sign In
                 </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push("/auth/signUp");
+                  }}
+                  className="link link-hover inline-flex justify-center py-4 font-medium hover:text-neutral-600"
+                >
+                  Doesn't have an account?
+                </button>
                 <span
                   className="inline-flex justify-center text-gray-500 text-xs text-center py-4 font-medium hover:text-neutral-600"
                 >Our vision is to make English learning accessible and affordable to everyone.</span>

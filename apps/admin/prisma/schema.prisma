@@ -36,6 +36,7 @@ model InformationStudent {
   remainingPurchase Int?
   rootUser User @relation(fields: [rootUserId], references: [id])
   rootUserId Int @unique
+  p2pSchedules SchedulesP2P[]
 }
 
 model InformationTutor {
@@ -53,8 +54,8 @@ model InformationTutor {
   // TODO After migration to Postgresql, needed to be teachingLanguages Int[]
   teachingLanguages Int?
   isApproved Boolean @default(false)
-  lessonP2P LessonP2P[]
   lessonGroup LessonGroup[]
+  schedulesP2p SchedulesP2P[]
 }
 
 model InformationAdmin {
@@ -73,15 +74,6 @@ model ConfigLanguages {
   flagSVGLink String
 }
 
-model LessonP2P {
-  id Int @id @default(autoincrement())
-  title String
-  information String
-  tutor InformationTutor? @relation(fields: [tutorId], references: [id])
-  tutorId Int
-  schedules SchedulesP2P[]
-}
-
 model LessonGroup {
   id Int @id @default(autoincrement())
   title String
@@ -97,14 +89,17 @@ model LessonGroup {
 
 model SchedulesP2P {
   id Int @id @default(autoincrement())
+  tutor InformationTutor? @relation(fields: [tutorId], references: [id])
+  tutorId Int?
+  student InformationStudent? @relation(fields: [studentId], references: [id])
+  studentId Int?
   meetingDate DateTime
   meetingLink String?
-  lesson LessonP2P @relation(fields: [lessonId], references: [id])
-  lessonId Int
   isDemo Boolean
   isPeer Boolean @default(true)
   isAvailable Boolean @default(true)
   durationByMinutes Int @default(60)
+  attendanceState String?
 }
 
 model SchedulesGroup {

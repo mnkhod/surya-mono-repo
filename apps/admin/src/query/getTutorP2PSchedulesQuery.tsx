@@ -2,13 +2,12 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
 
-export default function useGetAllP2PSchedulesQuery() {
+export default function useTutorP2PSchedulesQuery(tutorId: number) {
 
-  const { data: session, status } = useSession()
   return useQuery(
     {
       queryKey: "allLanguages",
-      queryFn: () => axios.get("/api/schedule/getP2PbyTutor?user").then((res) => {
+      queryFn: () => axios.get(`/api/schedule/getP2PSchedulesbyTutor?user=${tutorId}`).then((res) => {
         // console.log(res.data)
         return res.data
       }),
@@ -16,6 +15,7 @@ export default function useGetAllP2PSchedulesQuery() {
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       refetchOnMount: false,
+      suspense: true
     }
   );
 }
