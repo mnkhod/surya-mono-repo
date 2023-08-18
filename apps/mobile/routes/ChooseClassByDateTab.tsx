@@ -15,11 +15,11 @@ export default function ChooseClassByDateTab() {
     <ScrollView className="flex-1 bg-white">
       <View className="p-4 space-y-4">
         <CalendarPicker
-          previousComponent={<ChevronLeftIcon />}
           months={months}
           selectMonthTitle={""}
           selectYearTitle={"Он сонгох"}
           weekdays={days}
+          previousComponent={<ChevronLeftIcon />}
           nextComponent={<ChevronRightIcon />}
           onDateChange={() => {}}
         />
@@ -31,19 +31,13 @@ export default function ChooseClassByDateTab() {
             {Array.from(range(1, 10)).map((item, index) =>
               item == 1
                 ? (
-                  <TouchableOpacity
-                    key={index}
-                    className="w-[47%] py-2 border-2 border-stroke-light flex bg-primary justify-center items-center rounded-lg flex flex-row space-x-2"
-                  >
+                  <TouchableOpacity key={index} className="w-[47%] py-2 border-2 border-stroke-light flex bg-primary justify-center items-center rounded-lg flex flex-row space-x-2">
                     <CheckIcon />
                     <Text className="text-white font-rubik-bold">09:00</Text>
                   </TouchableOpacity>
                 )
                 : (
-                  <TouchableOpacity
-                    key={index}
-                    className="w-[47%] py-2 border-2 border-stroke-light flex items-center rounded-lg"
-                  >
+                  <TouchableOpacity key={index} className="w-[47%] py-2 border-2 border-stroke-light flex items-center rounded-lg">
                     <Text className="font-rubik-bold text-dark-med">09:00</Text>
                   </TouchableOpacity>
                 )

@@ -15,6 +15,10 @@ export type RootStackParamList = {
   SingleCourse: undefined;
   ChooseTrialClass: undefined;
   ChooseClass: undefined;
+  CoursePayment: undefined;
+
+  ChooseBankModal: undefined;
+  TrialClassOrderSuccessModal: undefined;
 };
 
 export type IntroductionScreenProp = {
@@ -36,10 +40,18 @@ export type SignInTabProp = {
 };
 export type ChooseTrialClassProp = {
   route: RouteProp<ParamListBase, "ChooseTrialClass">;
-  setShowAlert : Function,
   navigation: NativeStackNavigationProp<
     RootStackParamList,
     "ChooseTrialClass",
+    "RootStack"
+  >;
+};
+
+export type CoursePaymentProp = {
+  route: RouteProp<ParamListBase, "CoursePayment">;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    "CoursePayment",
     "RootStack"
   >;
 };
@@ -58,6 +70,24 @@ export type HomeTabProp = {
     RootStackParamList,
     "Home",
     "HomeTabStack"
+  >;
+};
+
+export type ChooseBankModalProp = {
+  route: RouteProp<ParamListBase, "Home">;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    "ChooseBankModal",
+    "ModalStack"
+  >;
+};
+
+export type TrialClassOrderSuccessModalProp = {
+  route: RouteProp<ParamListBase, "Home">;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    "TrialClassOrderSuccessModal",
+    "ModalStack"
   >;
 };
 

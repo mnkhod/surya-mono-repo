@@ -1,4 +1,4 @@
-import { Switch, Text, View } from "react-native";
+import { ScrollView, Switch, Text, View } from "react-native";
 import React from "react";
 import { Image } from "expo-image";
 import AvatarIcon from "../assets/AvatarIcon.png";
@@ -14,7 +14,7 @@ import MongolianFlag from "../svg/MongolianFlag";
 
 export default function ProfileTab() {
   return (
-    <View className="flex-1 bg-back-light-primary">
+    <ScrollView className="flex-1 bg-back-light-primary">
       <View className="bg-back-light-primary p-3 flex flex-row items-center justify-between">
         <View className="flex flex-row items-center space-x-4">
           <Image
@@ -132,6 +132,6 @@ export default function ProfileTab() {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
