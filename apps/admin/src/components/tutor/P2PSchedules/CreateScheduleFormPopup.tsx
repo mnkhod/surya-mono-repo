@@ -46,7 +46,7 @@ export default function CreateScheduleForm({ start, end, setIsPopupOpen, refetch
   }
 
   return (
-    <div className="flex flex-row justify-start border hover:border-2 p-4">
+    <div className="flex flex-row justify-start p-4">
       <div className="w-full flex flex-col justify-center">
           <label className="label">
             <span className="label-text">Meeting Date</span>

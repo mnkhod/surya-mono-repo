@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import axios from "axios";
 import React, { FormEvent, useEffect, useRef, useState } from "react";
 
-import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
+import { AgGridReact } from "ag-grid-react"; 
 import { ColDef, GridOptions } from "ag-grid-community";
 import Link from "next/link";
 

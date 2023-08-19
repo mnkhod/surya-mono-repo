@@ -5,10 +5,9 @@ import axios from "axios";
 import { alert } from "@/lib/alert";
 
 type Inputs = {
-  meetingDate: string;
+  endDate: string;
+  tutorId: string;
   durationByMinutes: string;
-  isPeer: string;
-  isDemo: string;
 };
 
 export default function CreateScheduleForm(
@@ -21,45 +20,42 @@ export default function CreateScheduleForm(
     console.log(data)
 
     try {
-      let resp = await axios.post("/api/tutor/createSchedule", {
-        meetingDate: data.meetingDate,
-        tutorId: 41,
-        isDemo: data.isDemo == "1" ? true : false,
-        isPeer: data.isPeer == "1" ? true : false,
-        isAvailable: true,
-        duration: data.durationByMinutes
+      let resp = await axios.post("/api/lesson/createGroupLesson", {
+        tutorId: data.tutorId,
+        durationByMinutes: data.durationByMinutes,
+        endDate: data.endDate
       });
 
       if (resp.status == 200) {
-        alert("success", "Created tutor");
+        alert("success", "Created lesson group");
         // setTabIndex(0);
       }
     } catch (e) {
-      console.log(e);
+      alert("error", "Unsucessful");
     }
 
     setBtnLoading(false);
   }
 
   return (
-    <div className="flex flex-row justify-start border hover:border-2 p-4">
+    <div className="flex flex-row justify-center border hover:border-2 p-4">
       <div className="w-full flex flex-col justify-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-2 w-full"
+          className="flex flex-col gap-2 w-5/12"
         >
-          <div className="form-control w-4/12">
+          <div className="form-control w-full">
             <label className="label">
-              <span className="label-text">Meeting Date</span>
+              <span className="label-text">Group end date</span>
             </label>
             <input
               placeholder="Type here"
               type="datetime-local"
               className="input input-bordered w-full"
-              {...register("meetingDate")}
+              {...register("endDate")}
             />
           </div>
-          <div className="form-control w-4/12">
+          <div className="form-control w-full">
             <label className="label">
               <span className="label-text">Duration by minutes</span>
             </label>
@@ -71,32 +67,18 @@ export default function CreateScheduleForm(
               {...register("durationByMinutes")}
             />
           </div>
-          <div className="form-control w-4/12 flex flex-col">
-            <span className="label-text">Schedule type</span>
-            <div className="form-control w-full">
-              <label className="label cursor-pointer">
-                <span className="label-text">Demo lesson</span>
-                <input
-                  type="checkbox"
-                  value={1}
-                  className="checkbox checked:bg-primary"
-                  {...register("isDemo")}
-                />
-              </label>
-            </div>
-            <div className="form-control w-full">
-              <label className="label cursor-pointer">
-                <span className="label-text">Peer lesson</span>
-                <input
-                  type="checkbox"
-                  value={1}
-                  className="checkbox checked:bg-primary"
-                  {...register("isPeer")}
-                />
-              </label>
-            </div>
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Tutor ID</span>
+            </label>
+            <input
+              placeholder="Type here"
+              type="number"
+              className="input input-bordered w-full"
+              {...register("tutorId")}
+            />
           </div>
-          <div className="form-control w-5/12 flex">
+          <div className="form-control w-full flex">
             <button
               className={`btn text-white w-4/12 btn-primary mt-2`}
               type="submit"

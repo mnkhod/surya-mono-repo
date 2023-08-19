@@ -34,6 +34,7 @@ model InformationStudent {
   // TODO After migration to Postgresql, needed to be learningLanguages Int[]
   learningLanguages Int?
   remainingPurchase Int?
+  remainingDemo Int @default(2)
   rootUser User @relation(fields: [rootUserId], references: [id])
   rootUserId Int @unique
   p2pSchedules SchedulesP2P[]
@@ -50,9 +51,9 @@ model InformationTutor {
   shortInfo String?
   videoLink String?
   profileImageLink String?
-  nativeLanguage Int?
+  nativeLanguage Int
   // TODO After migration to Postgresql, needed to be teachingLanguages Int[]
-  teachingLanguages Int?
+  teachingLanguages Int
   isApproved Boolean @default(false)
   lessonGroup LessonGroup[]
   schedulesP2p SchedulesP2P[]
@@ -76,14 +77,13 @@ model ConfigLanguages {
 
 model LessonGroup {
   id Int @id @default(autoincrement())
-  title String
-  information String
-  tutor InformationTutor? @relation(fields: [tutorId], references: [id])
+  tutor InformationTutor @relation(fields: [tutorId], references: [id])
   tutorId Int
   schedules SchedulesGroup[]
-  endDate DateTime
-  registrationEndDate DateTime
+  endDate DateTime?
+  registrationEndDate DateTime?
   createdAt  DateTime   @default(now())
+  durationByMinutes Int @default(60)
   updatedAt  DateTime   @updatedAt
 }
 
@@ -111,5 +111,4 @@ model SchedulesGroup {
   isDemo Boolean
   isPeer Boolean @default(true)
   isAvailable Boolean @default(true)
-  durationByMinutes Int @default(60)
 }

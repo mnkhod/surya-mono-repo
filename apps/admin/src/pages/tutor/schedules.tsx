@@ -66,7 +66,7 @@ export default function Schedules() {
           {tabIndex == 0 && <ScheduleList tabIndex={tabIndex} setRow={setRow} setTabIndex={setTabIndex} />}
           {tabIndex == 1 && <CreateScheduleForm />}
           {tabIndex == 2 && <EditScheduleForm row={row} setTabIndex={setTabIndex} />}
-          {tabIndex == 3 && <Calendar />}
+          {tabIndex == 3 && <Calendar tabIndex={tabIndex} setRow={setRow} setTabIndex={setTabIndex} />}
         </div>
       </div>
     </TutorLayout>

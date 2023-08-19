@@ -35,7 +35,7 @@ export default function ScheduleCalendar({tabIndex, setRow, setTabIndex}: any) {
     let schedules = p2pSchedules.map(schedule => {
       return {
         id: schedule.id,
-        title: schedule.isDemo ? "Demo" : "Nope",
+        title: schedule.isAvailable ? "Available (Peer)" : "Not available (Peer)",
         start: new Date(schedule.meetingDate),
         end: new Date(schedule.meetingDate).setHours(new Date(schedule.meetingDate).getHours() + 1),
       }
@@ -45,7 +45,11 @@ export default function ScheduleCalendar({tabIndex, setRow, setTabIndex}: any) {
 
 
   const handleSelectEvent = useCallback(
-    (event: any) => window.alert(JSON.stringify(event)),
+    (event: any) => {
+      const p2p = p2pSchedules.find(s => s.id == event.id)
+      setRow(p2p)
+      setTabIndex(2)
+    },
     []
   )
 
@@ -58,26 +62,32 @@ export default function ScheduleCalendar({tabIndex, setRow, setTabIndex}: any) {
     [setSchedules]
   )
 
+  const formats = {
+    eventTimeRangeFormat: () => { 
+      return "";
+    },
+  };
+
+
   return (
     <div className="height600">
 
       <Calendar
         localizer={localizer}
         events={schedules}
+        formats={formats}
         startAccessor="start"
         endAccessor="end"
         selectable
         onSelectEvent={handleSelectEvent}
         onSelectSlot={handleSelectSlot}
-        defaultView='week'
-        views={['week', 'work_week', 'day']}
+        defaultView='work_week'
+        views={['work_week', 'week', 'day']}
       />
       <dialog id="my_modal_1" className="modal" open={isPopupOpen}>
         <form method="dialog" className="modal-box">
+        <button onClick={() => setIsPopupOpen(false)} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           <CreateScheduleFormPopup start={start} end={end} setIsPopupOpen={setIsPopupOpen} refetchSchedulesData={refetchSchedulesData} />
-          <div className="modal-action">
-            <button className="btn" onClick={() => setIsPopupOpen(false)}>Close</button>
-          </div>
         </form>
       </dialog>
     </div>
