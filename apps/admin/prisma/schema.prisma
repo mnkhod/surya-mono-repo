@@ -38,6 +38,7 @@ model InformationStudent {
   rootUser User @relation(fields: [rootUserId], references: [id])
   rootUserId Int @unique
   p2pSchedules SchedulesP2P[]
+  groupSchedules SchedulesGroup[]
 }
 
 model InformationTutor {
@@ -106,9 +107,9 @@ model SchedulesGroup {
   id Int @id @default(autoincrement())
   lesson LessonGroup @relation(fields: [lessonId], references: [id])
   lessonId Int
+  student InformationStudent @relation(fields: [studentId], references: [id])
+  studentId Int
   meetingDate DateTime
   meetingLink String?
-  isDemo Boolean
-  isPeer Boolean @default(true)
   isAvailable Boolean @default(true)
 }
