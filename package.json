@@ -15,5 +15,10 @@
     "docs",
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@react-navigation/material-top-tabs": "^6.6.3",
+    "react-native-tab-view": "^3.5.2",
+    "react-native-pager-view": "6.1.2"
+  }
 }

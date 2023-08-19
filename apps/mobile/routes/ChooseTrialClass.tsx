@@ -6,7 +6,8 @@ import { ChooseTrialClassProp } from "../types/NavigationTypes";
 import CheckIcon from "../svg/CheckIcon";
 import Header from "../components/Header";
 
-export default function ChooseTrialClass({ navigation,setShowAlert }: ChooseTrialClassProp) {
+export default function ChooseTrialClass({ navigation }: ChooseTrialClassProp) {
+
   return (
     <View className="flex-1 relative z-1 bg-white">
       <View className="px-4">
@@ -55,7 +56,7 @@ export default function ChooseTrialClass({ navigation,setShowAlert }: ChooseTria
           </View>
         </View>
       </View>
-      <TouchableOpacity className="grow flex items-center justify-end" onPress={() => { setShowAlert(true) }}>
+      <TouchableOpacity className="grow flex items-center justify-end" onPress={() => { navigation.navigate("TrialClassOrderSuccessModal") }}>
         <View className="w-[170px] h-[55px] justify-center items-center">
           <ContinueButtonAsset className="absolute top-0 right-0" />
           <Text className="text-white font-rubik-bold">Үргэлжлүүлэх</Text>

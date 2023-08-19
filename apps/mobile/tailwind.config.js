@@ -23,6 +23,7 @@ module.exports = {
   content: [
     "./App.{js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
+    "./modals/**/*.{js,jsx,ts,tsx}",
     "./styles/**/*.{js,jsx,ts,tsx}",
     "./routes/**/*.{js,jsx,ts,tsx}",
   ],

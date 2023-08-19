@@ -36,7 +36,11 @@ export default function ChooseClass({ navigation }: ChooseClassProp) {
       </ChooseClassTab.Navigator>
 
       <View className="flex pt-4 items-center justify-end">
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("CoursePayment");
+          }}
+        >
           <View className="w-[170px] h-[55px] justify-center items-center">
             <ContinueButtonAsset className="absolute top-0 right-0" />
             <Text className="text-white font-rubik-bold">Үргэлжлүүлэх</Text>
