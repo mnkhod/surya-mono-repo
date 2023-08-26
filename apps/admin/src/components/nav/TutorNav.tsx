@@ -77,6 +77,11 @@ export default function TutorNav() {
                   <span className={configureActivePage("students")}>Students</span>
                 </Link>
               </li>
+              <li>
+                <Link href="/tutor/rescheduleRequests">
+                  <span className={configureActivePage("rescheduleRequests")}>Reschedule requests</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

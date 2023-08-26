@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react'
 import getTutorP2PSchedulesQuery from '@/query/getTutorP2PSchedulesQuery'
 import CreateScheduleForm from './CreateScheduleForm'
 import CreateScheduleFormPopup from './CreateScheduleFormPopup'
+import getTutorGroupSchedulesQuery from '@/query/getTutorGroupSchedulesQuery'
 
 type Inputs = {
   meetingDate: string;
@@ -22,7 +23,7 @@ export default function ScheduleCalendar({tabIndex, setRow, setTabIndex}: any) {
   const { data: session, status } = useSession()
 
   const { data: p2pSchedules, isSuccess, refetch: refetchSchedulesData } =
-    getTutorP2PSchedulesQuery(session?.user?.informationTutor?.id);
+    getTutorGroupSchedulesQuery();
 
   const [schedules, setSchedules] = useState([])
   const [start, setStart] = useState(null)
@@ -32,7 +33,7 @@ export default function ScheduleCalendar({tabIndex, setRow, setTabIndex}: any) {
 
   useEffect(() => {
     refetchSchedulesData()
-    let schedules = p2pSchedules.map(schedule => {
+    let schedules = p2pSchedules.map((schedule: any) => {
       return {
         id: schedule.id,
         title: schedule.isAvailable ? "Available (Peer)" : "Not available (Peer)",
@@ -46,7 +47,7 @@ export default function ScheduleCalendar({tabIndex, setRow, setTabIndex}: any) {
 
   const handleSelectEvent = useCallback(
     (event: any) => {
-      const p2p = p2pSchedules.find(s => s.id == event.id)
+      const p2p = p2pSchedules.find((s: any) => s.id == event.id)
       setRow(p2p)
       setTabIndex(2)
     },

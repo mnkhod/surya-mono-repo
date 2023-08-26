@@ -8,7 +8,6 @@ export default function useTutorP2PSchedulesQuery(tutorId: number) {
     {
       queryKey: "allLanguages",
       queryFn: () => axios.get(`/api/schedule/getP2PSchedulesbyTutor?user=${tutorId}`).then((res) => {
-        // console.log(res.data)
         return res.data
       }),
       cacheTime: 5 * 60 * 1000,

@@ -29,26 +29,31 @@ export default async function handler(req: any, res: any) {
 
     if (!schedule.isAvailable) throw new Error("Schedule is not available")
 
-    updatedSchedule = await prisma.schedulesP2P.update({
-      where: {
-        id: parseInt(scheduleId)
-      },
-      data: {
-        isAvailable: false,
-        studentId: parseInt(studentId),
-        isDemo: true,
-        isPeer: false
-      }
-    })
+    const responses = await prisma.$transaction([
+      prisma.schedulesP2P.update({
+        where: {
+          id: parseInt(scheduleId)
+        },
+        data: {
+          isAvailable: false,
+          studentId: parseInt(studentId),
+          isDemo: true,
+          isPeer: false
+        }
+      }),
+      prisma.informationStudent.update({
+        where: {
+          id: parseInt(studentId)
+        },
+        data: {
+          remainingDemo: student.remainingDemo - 1
+        }
+      })
+    ])
 
-    updatedStudent = await prisma.informationStudent.update({
-      where: {
-        id: studentId
-      },
-      data: {
-        remainingDemo: student.remainingDemo - 1
-      }
-    })
+    updatedSchedule = responses[0]
+
+    updatedStudent = responses[1]
 
   } catch (e: any) {
     res.status(400).json({message: e.message});

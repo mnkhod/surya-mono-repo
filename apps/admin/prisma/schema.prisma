@@ -33,7 +33,7 @@ model InformationStudent {
   nativeLanguage Int?
   // TODO After migration to Postgresql, needed to be learningLanguages Int[]
   learningLanguages Int?
-  remainingPurchase Int?
+  remainingPurchase Int @default(0)
   remainingDemo Int @default(2)
   rootUser User @relation(fields: [rootUserId], references: [id])
   rootUserId Int @unique
@@ -101,6 +101,7 @@ model SchedulesP2P {
   isAvailable Boolean @default(true)
   durationByMinutes Int @default(60)
   attendanceState String?
+  rescheduleRequests RescheduleRequestsP2P[]
 }
 
 model SchedulesGroup {
@@ -112,4 +113,18 @@ model SchedulesGroup {
   meetingDate DateTime
   meetingLink String?
   isAvailable Boolean @default(true)
+}
+
+model RescheduleRequestsP2P {
+  id Int @id @default(autoincrement())
+  updatedAt  DateTime   @updatedAt
+  createdAt  DateTime   @default(now())
+  reasonText String
+  explanationText String?
+  schedule SchedulesP2P @relation(fields: [scheduleId], references: [id])
+  scheduleId Int
+  isPending Boolean @default(true)
+  isTeacherRequest Boolean
+  isStudentRequest Boolean
+  isApproved Boolean?
 }
