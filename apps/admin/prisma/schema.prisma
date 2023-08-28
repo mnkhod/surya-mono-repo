@@ -39,6 +39,7 @@ model InformationStudent {
   rootUserId Int @unique
   p2pSchedules SchedulesP2P[]
   groupSchedules SchedulesGroup[]
+  birthdate DateTime @default(now())
 }
 
 model InformationTutor {
@@ -68,6 +69,16 @@ model InformationAdmin {
   firstName String?
   rootUser User @relation(fields: [rootUserId], references: [id])
   rootUserId Int @unique
+}
+
+// TODO register when student signup
+model StudentLanguageLevel {
+  id Int @id @default(autoincrement())
+  studentId Int
+  languageLevel String
+  languageId Int
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 }
 
 model ConfigLanguages {

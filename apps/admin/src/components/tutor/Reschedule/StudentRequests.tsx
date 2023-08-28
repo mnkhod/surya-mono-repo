@@ -1,4 +1,4 @@
-import useGetAllP2PSchedulesQuery from "@/query/useGetAllP2PSchedulesQuery";
+import useGetAllP2PSchedulesQuery from "@/query/tutor/useGetAllP2PSchedulesQuery";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import React, { FormEvent, useEffect, useMemo, useRef, useState } from "react";

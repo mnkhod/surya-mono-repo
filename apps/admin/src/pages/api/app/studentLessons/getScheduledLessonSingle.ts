@@ -103,7 +103,7 @@ export default async function handler(req: any, res: any) {
     lastname: "Jefferson",
     link: "",
     createdDate: ""
-  },]
+  }]
 
   let formattedSchedules = upcomingSchedules.map(sch => {
     return { id: sch.id, datetime: sch.meetingDate }
