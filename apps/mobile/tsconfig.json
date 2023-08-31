@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "target": "ESNext",
     "paths": {
-      "@styles/*": ["./styles/*"]
+      "@styles/*": ["./styles/*"],
+      "@helpers/*": ["./helpers/*"]
     },
     "include": [
       "types/*.ts"

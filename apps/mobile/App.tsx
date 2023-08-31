@@ -23,9 +23,11 @@ import { store } from "./store";
 import { Provider } from "react-redux";
 import ChooseBankModal from "./modals/ChooseBankModal";
 import TrialClassOrderSuccessModal from "./modals/TrialClassOrderSuccessModal";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.preventAutoHideAsync();
 
+const queryClient = new QueryClient()
 const Stack = createNativeStackNavigator();
 moment.locale("mn");
 
@@ -47,86 +49,88 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <View
-          className="flex-1 py-12 bg-back-light-primary"
-          onLayout={onLayoutRootView}
-        >
-          <StatusBar />
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <NavigationContainer>
+          <View
+            className="flex-1 py-12 bg-back-light-primary"
+            onLayout={onLayoutRootView}
+          >
+            <StatusBar />
 
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Introduction" options={{ headerShown: false }}>
-              {(props) => <IntroductionScreen {...props} />}
-            </Stack.Screen>
+            <Stack.Navigator initialRouteName="Home">
+              <Stack.Screen name="Introduction" options={{ headerShown: false }}>
+                {(props) => <IntroductionScreen {...props} />}
+              </Stack.Screen>
 
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Search"
-              component={SearchScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Notification"
-              component={NotifScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SingleCourse"
-              component={SingleCourse}
-              options={{ headerShown: false }}
-            />
-
-            <Stack.Screen
-              name="ChooseTrialClass"
-              options={{ headerShown: false }}
-            >
-              {(props) => <ChooseTrialClass {...props} />}
-            </Stack.Screen>
-
-            <Stack.Screen
-              name="ChooseClass"
-              options={{ headerShown: false }}
-            >
-              {(props) => <ChooseClass {...props} />}
-            </Stack.Screen>
-
-            <Stack.Screen
-              name="CoursePayment"
-              options={{ headerShown: false }}
-            >
-              {(props) => <CoursePayment {...props} />}
-            </Stack.Screen>
-
-            <Stack.Group screenOptions={{ presentation: "transparentModal" }}>
               <Stack.Screen
-                name="ChooseBankModal"
-                component={ChooseBankModal}
-                options={{
-                  headerShown: false,
-                }}
+                name="Home"
+                component={HomeScreen}
+                options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="TrialClassOrderSuccessModal"
-                component={TrialClassOrderSuccessModal}
-                options={{
-                  headerShown: false,
-                }}
+                name="Search"
+                component={SearchScreen}
+                options={{ headerShown: false }}
               />
-            </Stack.Group>
-          </Stack.Navigator>
-        </View>
-      </NavigationContainer>
-    </Provider>
+              <Stack.Screen
+                name="Notification"
+                component={NotifScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="SingleCourse"
+                component={SingleCourse}
+                options={{ headerShown: false }}
+              />
+
+              <Stack.Screen
+                name="ChooseTrialClass"
+                options={{ headerShown: false }}
+              >
+                {(props) => <ChooseTrialClass {...props} />}
+              </Stack.Screen>
+
+              <Stack.Screen
+                name="ChooseClass"
+                options={{ headerShown: false }}
+              >
+                {(props) => <ChooseClass {...props} />}
+              </Stack.Screen>
+
+              <Stack.Screen
+                name="CoursePayment"
+                options={{ headerShown: false }}
+              >
+                {(props) => <CoursePayment {...props} />}
+              </Stack.Screen>
+
+              <Stack.Group screenOptions={{ presentation: "transparentModal" }}>
+                <Stack.Screen
+                  name="ChooseBankModal"
+                  component={ChooseBankModal}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="TrialClassOrderSuccessModal"
+                  component={TrialClassOrderSuccessModal}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+              </Stack.Group>
+            </Stack.Navigator>
+          </View>
+        </NavigationContainer>
+      </Provider>
+    </QueryClientProvider>
   );
 }
 

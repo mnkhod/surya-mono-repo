@@ -10,6 +10,7 @@ module.exports = function (api) {
           root: ["./"],
           alias: {
             "@styles": "./styles",
+            "@helpers": "./helpers",
           },
         },
       ],
