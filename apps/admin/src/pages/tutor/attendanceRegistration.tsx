@@ -6,7 +6,7 @@ import Calendar from "@/components/tutor/P2PSchedules/Calendar";
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-material.css"; // Optional theme CSS
 import { useEffect, useState } from "react";
-import useTutorP2PSchedulesQuery from "@/query/getTutorP2PSchedulesQuery";
+import useTutorP2PSchedulesQuery from "@/query/tutor/getTutorP2PSchedulesQuery";
 import { useSession } from "next-auth/react";
 import Attendances from "@/components/tutor/Attendance/Attendances";
 import RegisterAttendanceRegister from "@/components/tutor/Attendance/RegisterAttendanceRegister";

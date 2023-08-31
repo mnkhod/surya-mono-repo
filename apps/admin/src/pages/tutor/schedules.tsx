@@ -6,7 +6,7 @@ import Calendar from "@/components/tutor/P2PSchedules/Calendar";
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-material.css"; // Optional theme CSS
 import { useEffect, useState } from "react";
-import useTutorP2PSchedulesQuery from "@/query/getTutorP2PSchedulesQuery";
+import useTutorP2PSchedulesQuery from "@/query/tutor/getTutorP2PSchedulesQuery";
 import { useSession } from "next-auth/react";
 
 export default function Schedules() {
@@ -17,7 +17,7 @@ export default function Schedules() {
   const [row, setRow] = useState({});
 
   if(status == 'loading') {
-    return <title>Unauthorized</title>
+    return <title>Loading</title>
   }
   return (
     <TutorLayout>

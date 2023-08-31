@@ -1,4 +1,4 @@
-import useGetAllP2PSchedulesQuery from "@/query/useGetAllP2PSchedulesQuery";
+import useGetAllP2PSchedulesQuery from "@/query/tutor/useGetAllP2PSchedulesQuery";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import React, { FormEvent, useEffect, useRef, useState } from "react";
@@ -9,7 +9,7 @@ import Link from "next/link";
 
 import { alert } from "@/lib/alert";
 import { useSession } from "next-auth/react";
-import getTutorP2PSchedulesQuery from "@/query/getTutorP2PSchedulesQuery";
+import getTutorP2PSchedulesQuery from "@/query/tutor/getTutorP2PSchedulesQuery";
 
 export default function Attendances({ tabIndex, setTabIndex, setRow }: {
   tabIndex: number;

@@ -3,33 +3,49 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async function handler(req: any, res: any) {
+
+  let tutorId = parseInt(req.query.tutorId)
+  let tutor: any = null
+  let requests: any[] = []
+
   try {
+
+    tutor = await prisma.informationTutor.findUniqueOrThrow({
+      where: {
+        id: tutorId
+      }
+    })
+
+    if (!tutor) throw new Error("Tutor not found")
+
     if (isPaginationExists(req)) {
       let limit = parseInt(req.query.limit), page = parseInt(req.query.page)
-
-      const schedules = await prisma.schedulesP2P.findMany({
+      requests = await prisma.rescheduleRequestsP2P.findMany({
         skip: limit * (page - 1),
         take: limit,
         where: {
-          tutorId: req.query.tutorId
+          schedule: {
+            tutorId: tutorId
+          }
         }
       });
-      res.status(200).json(schedules)
       return
     }
-    const schedules = await prisma.schedulesP2P.findMany({
+    requests = await prisma.rescheduleRequestsP2P.findMany({
       where: {
-        tutorId: req.query.tutorId
+        schedule: {
+          tutorId: tutorId
+        }
       },
       include: {
-        tutor: true,
-        student: true
+        schedule: true
       }
     });
-    res.status(200).json(schedules);
   } catch (e) {
-    res.status(500);
+    res.status(500).json(e);
   }
+
+  res.status(200).json(requests)
 }
 
 // TODO create utility functions file

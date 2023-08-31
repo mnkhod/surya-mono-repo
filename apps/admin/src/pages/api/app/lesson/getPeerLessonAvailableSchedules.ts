@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 export default async function handler(req: any, res: any) {
 
   let availableSchedules: any[] = []
+  let student: any = null
 
   try {
     let { tutorId, studentId } = req.query
@@ -19,8 +20,16 @@ export default async function handler(req: any, res: any) {
       }
     })
 
-  } catch (e) {
-    res.status(400).json(e);
+    student = await prisma.informationStudent.findUniqueOrThrow({
+      where: {
+        id: parseInt(studentId)
+      }
+    })
+
+    if (!student) throw new Error("Student not found")
+
+  } catch (e: any) {
+    res.status(400).json({message: e.message});
   }
 
   const formattedSchedules = availableSchedules.map((schedule) => {
@@ -34,11 +43,12 @@ export default async function handler(req: any, res: any) {
       id: schedule.id,
       date,
       time,
-      durationByMinutes: schedule.durationByMinutes
+      durationByMinutes: schedule.durationByMinutes,
+      datetime: schedule.meetingDate
     }
   })
 
-  res.status(200).json({formattedSchedules});
+  res.status(200).json({formattedSchedules, student});
 }
 
 // TODO create utility functions file 

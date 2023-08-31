@@ -2,7 +2,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
 
-export default function useTutorP2PSchedulesQuery(tutorId?: number) {
+export default function useTutorGroupSchedulesQuery(tutorId?: number) {
 
   return useQuery(
     {

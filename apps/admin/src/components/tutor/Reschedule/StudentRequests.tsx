@@ -1,27 +1,35 @@
 import useGetAllP2PSchedulesQuery from "@/query/tutor/useGetAllP2PSchedulesQuery";
 import { Icon } from "@iconify/react";
 import axios from "axios";
-import React, { FormEvent, useEffect, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import { ColDef, GridOptions } from "ag-grid-community";
 import Link from "next/link";
 
 import { alert } from "@/lib/alert";
+import useGetAllStudentRescheduleRequests from "@/query/useGetAllStudentRescheduleRequests";
+import { useQuery } from "react-query";
+import { useSession } from "next-auth/react";
+import moment from "moment";
 
 export default function ScheduleList({ tabIndex, setRow, setTabIndex }: {
   tabIndex: number;
   setRow: Function;
   setTabIndex: Function;
 },) {
+
+  const { data: session, status } = useSession()
   const table = useRef(null);
   const [quickFilterInput, setQuickFilterInput] = useState("");
 
-  const { data: schedules, isSuccess, refetch: refetchSchedulesData } =
-    useGetAllP2PSchedulesQuery()
+  const { data: schedules, isSuccess, refetch: refetchSchedulesData, isLoading } =
+    useGetAllStudentRescheduleRequests(session?.user?.informationTutor?.id)
 
-  console.log(schedules)
-    
+  if (isLoading) return (
+    <>Loading</>
+  )
+
   function handleQuickFilter(e: FormEvent<HTMLInputElement>) {
     if (!table || !table.current) return;
 
@@ -39,28 +47,27 @@ export default function ScheduleList({ tabIndex, setRow, setTabIndex }: {
     grid.api?.exportDataAsCsv({ fileName: "All P2P Schedules Data" });
   }
 
-  function handleEditButton(params: any) {
-    // console.log(params)
-    setRow(params.data);
-    setTabIndex(2);
-  }
-
-  async function handleItemRemove(params: any) {
-    if (!params) return;
+  async function handleEditButton(params: any, isApprove: boolean) {
 
     try {
-      const result = await axios.post("/api/tutor/removeScheduleP2P", {
-        id: params.data.id,
+      let resp = await axios.post("/api/reschedule/registerResponse", {
+        isApprove,
+        requestId: params.data.id,
+        scheduleId: params.data.schedule.id,
+        studentId: params.data.schedule.studentId
       });
 
-      if (result.status == 200) {
-        await refetchSchedulesData();
-        alert("success", "Deleted schedule");
+      if (resp.status == 200) {
+        alert("success", "Updated");
+        console.log(resp)
+        refetchSchedulesData(session?.user?.informationTutor?.id)
       }
     } catch (e) {
-      console.log(e);
+      alert("error", "Unsucessful, please try again");
     }
   }
+
+  console.log(schedules)
 
   return (
     <div className="flex flex-col gap-2">
@@ -80,11 +87,6 @@ export default function ScheduleList({ tabIndex, setRow, setTabIndex }: {
           </label>
         </div>
         <div className="flex flex-col md:flex-row gap-2">
-          {/* <Link href="/admin/addTutor">
-            <button className="btn btn-secondary w-full">
-              <Icon className="w-auto h-6" icon="ic:round-plus" />
-            </button>
-          </Link> */}
           {isSuccess && (
             <>
               <button
@@ -105,6 +107,7 @@ export default function ScheduleList({ tabIndex, setRow, setTabIndex }: {
             pagination={true}
             paginationPageSize={10}
             rowData={schedules}
+            defaultColDef={{ resizable: true }}
             rowClass={"text-2xs"}
             columnDefs={[
               {
@@ -114,57 +117,66 @@ export default function ScheduleList({ tabIndex, setRow, setTabIndex }: {
                 width: 120,
                 headerName: "id",
               },
-              { field: "durationByMinutes", headerName: "Duration" },
-              { field: "meetingDate" },
-              { field: "isDemo", headerName: "Demo" },
-              { field: "isPeer", headerName: "Peer" },
-              { field: "isAvailable" },
+              { field: "reasonText", headerName: "Reason", suppressSizeToFit: true },
+              { field: "explanationText", headerName: "Explanation" },
               {
-                field: "actions",
-                lockPosition: "right",
-                headerName: "actions",
-                filter: false,
-                sortable: false,
+                field: "createdAt",
+                headerName: "Date",
                 cellRenderer: (params: any) => {
                   return (
-                    <div className="relative z-20 h-full flex items-center gap-2 justify-end">
+                    <>{moment(new Date(params.value)).format('MMMM Do, h:mm:ss a')}</>
+                  )
+                }
+              },
+              {
+                field: "schedule.meetingDate", headerName: "Meeting date",
+                cellRenderer: (params: any) => {
+                  return (
+                    <>{moment(new Date(params.value)).format('MMMM Do, h:mm:ss a')}</>
+                  )
+                }
+              },
+              {
+                field: "isPending", headerName: "State",
+                sort: 'desc',
+                cellRenderer: (params: any) => {
+                  return (
+                    <>{params.value ? "Pending" : "Resolved"}</>
+                  )
+                }
+              },
+              {
+                field: "actions",
+                headerName: "Actions",
+                width: 250,
+                cellRenderer: (params: any) => {
+                  if (!params.data.isPending) {
+                    return <></>
+                  }
+                  return (
+                    <div className="relative z-20 h-full flex items-center gap-2 justify-start">
                       <button
                         className="btn btn-outline btn-secondary rounded-full btn-sm"
                         onClick={() => {
-                          handleEditButton(params);
+                          handleEditButton(params, true);
                         }}
                       >
-                        <Icon
-                          className="w-auto h-4"
-                          icon="ic:round-mode-edit"
-                        />
+                        Approve
                       </button>
                       <button
-                        className="btn btn-outline btn-accent rounded-full btn-sm"
+                        className="btn btn-outline btn-error rounded-full btn-sm"
                         onClick={() => {
-                          handleItemRemove(params);
+                          handleEditButton(params, false);
                         }}
                       >
-                        <Icon className="w-auto h-4" icon="ic:round-minus" />
+                        Disapprove
                       </button>
                     </div>
                   );
                 },
               },
             ]}
-            animateRows={true}
-            enableCellTextSelection={true}
-            isRowSelectable={() => false}
-            suppressRowClickSelection={true}
-            suppressCellFocus={true}
-            suppressMenuHide={true}
-            onCellClicked={() => { }}
             domLayout="autoHeight"
-            defaultColDef={{
-              sortable: true,
-              filter: true,
-              floatingFilter: true,
-            } as ColDef}
           />
         </div>
       )}

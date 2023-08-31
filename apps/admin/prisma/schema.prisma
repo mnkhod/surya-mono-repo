@@ -33,11 +33,13 @@ model InformationStudent {
   nativeLanguage Int?
   // TODO After migration to Postgresql, needed to be learningLanguages Int[]
   learningLanguages Int?
-  remainingPurchase Int?
+  remainingPurchase Int @default(0)
   remainingDemo Int @default(2)
   rootUser User @relation(fields: [rootUserId], references: [id])
   rootUserId Int @unique
   p2pSchedules SchedulesP2P[]
+  groupSchedules SchedulesGroup[]
+  birthdate DateTime @default(now())
 }
 
 model InformationTutor {
@@ -67,6 +69,16 @@ model InformationAdmin {
   firstName String?
   rootUser User @relation(fields: [rootUserId], references: [id])
   rootUserId Int @unique
+}
+
+// TODO register when student signup
+model StudentLanguageLevel {
+  id Int @id @default(autoincrement())
+  studentId Int
+  languageLevel String
+  languageId Int
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 }
 
 model ConfigLanguages {
@@ -100,15 +112,30 @@ model SchedulesP2P {
   isAvailable Boolean @default(true)
   durationByMinutes Int @default(60)
   attendanceState String?
+  rescheduleRequests RescheduleRequestsP2P[]
 }
 
 model SchedulesGroup {
   id Int @id @default(autoincrement())
   lesson LessonGroup @relation(fields: [lessonId], references: [id])
   lessonId Int
+  student InformationStudent @relation(fields: [studentId], references: [id])
+  studentId Int
   meetingDate DateTime
   meetingLink String?
-  isDemo Boolean
-  isPeer Boolean @default(true)
   isAvailable Boolean @default(true)
+}
+
+model RescheduleRequestsP2P {
+  id Int @id @default(autoincrement())
+  updatedAt  DateTime   @updatedAt
+  createdAt  DateTime   @default(now())
+  reasonText String
+  explanationText String?
+  schedule SchedulesP2P @relation(fields: [scheduleId], references: [id])
+  scheduleId Int
+  isPending Boolean @default(true)
+  isTeacherRequest Boolean
+  isStudentRequest Boolean
+  isApproved Boolean?
 }
